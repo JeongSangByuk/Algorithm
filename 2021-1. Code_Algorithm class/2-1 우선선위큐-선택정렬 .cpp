@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// 오름 차순 정렬
 int main() {
 
 	int n, * arr, tmp;

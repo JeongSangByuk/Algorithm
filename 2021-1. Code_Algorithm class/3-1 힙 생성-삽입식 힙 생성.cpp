@@ -11,6 +11,7 @@ void printHeap();
 int n=0;
 int H[100];
 
+// ÃÖ´ë Èü
 int main() {
 
 	int isQ = 0;

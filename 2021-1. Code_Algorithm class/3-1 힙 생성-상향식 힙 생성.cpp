@@ -9,6 +9,7 @@ void rBuildHeap(int i);
 int n;
 int H[100];
 
+// ÃÖ´ë Èü
 int main() {
 
 	char m;
