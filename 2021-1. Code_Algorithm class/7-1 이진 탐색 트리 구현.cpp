@@ -139,7 +139,7 @@ void removeElement(int k) {
 
 	// left로 두고
 	Node* z = p->lChild;
-	// external 이면 right로
+	// external하지 않으면 right로
 	if (!isExternal(z))
 		z = p->rChild;
 
@@ -147,7 +147,7 @@ void removeElement(int k) {
 	if (isExternal(z)) {
 		reduceExternal(z);
 	}
-	//case 2 => 자식 둘 다 internal 노드
+	//case 2 => 자식 둘 다 internal 노드,
 	else {
 		Node* y = inOrderSucc(p);
 		z = y->lChild;
