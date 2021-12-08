@@ -47,6 +47,39 @@ int main(void) {
 	return 0;
 }
 
+void rTopologicalSortDfs(int v) {
+
+	graph.vertices[v].isVisited = 1;
+
+	for (int i = 0; i < n; i++) {
+
+		if (graph.ad[v][i] != -1 && graph.vertices[i].isVisited == 0) {
+			rTopologicalSortDfs(i);
+		}
+	}
+	topOrder[num--] = v;
+}
+
+int* topologicalSort() {
+
+	// 각 정점들을 위상 정렬해서 나타내는 topOrder
+	topOrder = (int*)malloc(sizeof(int) * (n));
+
+	// topOrder 초기화
+	for (int i = 0; i < n; i++)
+		topOrder[i] = -1;
+
+	for (int i = 0; i < n; i++) {
+
+		// 진입 차수 0인 정점만
+		if (graph.vertices[i].isVisited == 0 && graph.vertices[i].inDegree == 0) {
+			rTopologicalSortDfs(i);
+		}
+	}
+
+	return topOrder;
+}
+
 void buildGraph() {
 
 	char tmpVertex, ori, des;
@@ -118,39 +151,7 @@ int getVertexIndexByName(char name) {
 	}
 }
 
-void rTopologicalSortDfs(int v) {
 
-	graph.vertices[v].isVisited = 1;
-
-	for (int i = 0; i < n; i++) {
-	
-		if (graph.ad[v][i] != -1 && graph.vertices[i].isVisited == 0) {
-			rTopologicalSortDfs(i);
-		}
-	}
-	topOrder[num--] = v;
-}
-
-int* topologicalSort() {
-
-	// 각 정점들을 위상 정렬해서 나타내는 topOrder
-	// 사이클 존재 유무를 저장하기 위해 0번째 인덱스는 비운다.
-	topOrder = (int*)malloc(sizeof(int) * (n));
-
-	// topOrder 초기화
-	for (int i = 0; i < n; i++)
-		topOrder[i] = -1;
-
-	for (int i = 0; i < n; i++) {
-
-		// 진입 차수 0인 정점만
-		if (graph.vertices[i].isVisited == 0 && graph.vertices[i].inDegree == 0) {
-			rTopologicalSortDfs(i);
-		}
-	}
-
-	return topOrder;
-}
 
 
 

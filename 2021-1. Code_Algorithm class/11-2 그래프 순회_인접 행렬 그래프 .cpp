@@ -87,6 +87,33 @@ void Dfs(int v) {
 	}
 }
 
+void Bfs2(int v) {
+
+	int front = 0, rear = 0;
+	int pop;
+
+	printf("%d\n", v + 1);
+	queue[0] = v;
+	rear++;
+	vert[v].isVisited = 1;
+
+	while (front < rear) {
+		pop = queue[front];
+		front++;
+
+		for (int i = 0; i < n; i++) {
+			if (ad[pop][i] != -1 && vert[i].isVisited == 0) {
+				printf("%d\n", i + 1);
+				queue[rear] = i;
+				rear++;
+				vert[i].isVisited = 1;
+			}
+		}
+
+	}
+}
+
+
 void Bfs(int v) {
 
 	int stack[100] = { 0, };
@@ -145,35 +172,6 @@ void Bfs(int v) {
 
 		}
 	}
-}
-
-void Bfs2(int v) {
-
-	int front = 0, rear = 0;
-	int pop;
-
-	printf("%d\n", v + 1);
-	queue[0] = v;
-	rear++;
-	vert[v].isVisited = 1;
-
-	while (front < rear) {
-		pop = queue[front];
-		front++;
-
-		for (int i = 0; i < n; i++) {
-			if (ad[pop][i] != -1 && vert[i].isVisited == 0) {
-				printf("%d\n", i + 1);
-				queue[rear] = i;
-				rear++;
-				vert[i].isVisited = 1;
-			}
-		}
-
-	}
-
-
-
 }
 
 void insertEdge(int a, int b) {
