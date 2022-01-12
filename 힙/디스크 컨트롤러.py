@@ -4,7 +4,9 @@ def solution(jobs):
     answer = 0
     ready = []
     time = 0
-    l = len(jobs)
+    l = len(jobs
+
+    # 잡큐와 레디큐 이용
     while len(jobs) != 0 or len(ready) != 0:
 
         # 레디큐가 빈경우, jobs 배열 검사
@@ -51,6 +53,7 @@ def solution(jobs):
                 idx+=1
 
         # 레디큐 실행 시간 순으로 정렬
+        # 레디큐에서는 실행 시간이 짧은 순으로 실행 시켜야하기 때문에
         if len(ready) != 0:
             ready = sorted(ready, key=lambda x: x[1])
 
