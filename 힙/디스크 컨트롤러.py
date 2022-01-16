@@ -4,7 +4,7 @@ def solution(jobs):
     answer = 0
     ready = []
     time = 0
-    l = len(jobs
+    l = len(jobs)
 
     # 잡큐와 레디큐 이용
     while len(jobs) != 0 or len(ready) != 0:

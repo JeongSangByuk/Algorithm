@@ -14,7 +14,7 @@ def solution(scoville, K):
         temp2 = Heap.heappop(scoville)
         s = temp1 + (temp2 * 2)
 
-        # 계산된 값 psuh
+        # 계산된 값 push
         Heap.heappush(scoville,s)
         answer+=1
 
