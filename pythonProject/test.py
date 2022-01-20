@@ -1,7 +1,8 @@
-from itertools import permutations
 
-tmp = []
-for i in permutations(['1','2','3','4'], 4):
-    tmp.append(''.join(i))
+import collections
 
-print(tmp)
+queue = collections.deque()
+
+a, b = 2
+
+print(b)
