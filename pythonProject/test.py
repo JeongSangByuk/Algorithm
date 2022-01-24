@@ -1,8 +1,8 @@
 
+# 65 / 90
+#
+a = "ABCDE"
 
-a = [1,3,1]
-l = 5
+n = list(a)
 
-a.sort()
-
-print(a)
+print(n[5])
