@@ -1,8 +1,8 @@
 
-import collections
 
-queue = collections.deque()
+a = [1,3,1]
+l = 5
 
-a, b = 2
+a.sort()
 
-print(b)
+print(a)
