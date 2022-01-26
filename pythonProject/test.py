@@ -3,6 +3,6 @@
 #
 a = "ABCDE"
 
-n = list(a)
+for i in a:
+    print(i)
 
-print(n[5])
