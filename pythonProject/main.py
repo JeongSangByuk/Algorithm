@@ -1,24 +1,17 @@
+from collections import deque
 
+def getParent(set, x):
+    if set[x] == x:
+        return x
 
-def solution(number, k):
-    answer = []
+    return set[x] = getParent(set,)
 
-    for num in number:
-
-        # k가 0보다 큰 시점에서 answer의 끝 값이 num 보다 작으면 pop
-        while answer and k > 0 and answer[-1] < num:
-            answer.pop()
-            k -= 1
-
-        # 계속해서 push
-        answer.append(num)
-
-
-    answer = ''.join(answer[:len(number) - k])
+def solution(n, costs):
+    answer = 0
     return answer
 
-number = eval(input())
-k = int(input())
 
+n = int(input())
+cost = eval(input())
 
-print(solution(number,k))
+print(solution(n,cost))
