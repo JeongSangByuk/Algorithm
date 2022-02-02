@@ -1,8 +1,10 @@
 
-a = [1]
-print(a)
+s = "qwe"
 
-print(a*3)
+s[1] = "2"
+
+for i in s:
+    print(i)
 
 
 
