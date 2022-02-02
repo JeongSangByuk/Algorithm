@@ -1,15 +1,5 @@
 
-from collections import deque
+n = int(input())
+g = [list(map(int, input())) for _ in range(n)]
 
-
-# 65 / 90
-#
-a = "ABCDE"
-
-deq = deque()
-
-for i in a:
-    deq.append(i)
-
-print(deq.pop())
-print(deq.popleft())
+print(g)
