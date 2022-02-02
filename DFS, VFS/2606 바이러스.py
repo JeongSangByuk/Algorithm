@@ -31,18 +31,19 @@ def dfs2(start):
     deq = deque()
 
     deq.append(start)
-    visit.append(start)
 
     while deq:
+
         node = deq.pop()
+
         if node not in visit:
             visit.append(node)
-            deq.append(node)
-
+            deq.extend(g[node])
+        print(visit)
 
 #print(lines)
 #print(g)
-dfs(1)
+dfs2(1)
 
 #print(answer)
 print(len(visit) - 1)
