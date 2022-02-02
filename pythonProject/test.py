@@ -1,6 +1,9 @@
 
-n, m  = map(int, input().split())
-g = [list(map(int, input())) for _ in range(n)]
+a = [1,2]
+b = a[:]
 
-print(n)
-print(g)
+print(b)
+
+
+
+
