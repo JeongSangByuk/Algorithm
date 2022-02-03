@@ -1,10 +1,13 @@
 
-s = "qwe"
 
-s[1] = "2"
+t = [1,2,3]
 
-for i in s:
-    print(i)
+tt = t[:]
+
+tt[1] = 4
+
+
+print(t)
 
 
 

@@ -1,72 +1,51 @@
 from collections import deque
 
-# 바꿀 수 있는지 검사 -> 하나 빼고 다 같으면 바꿀 수 있다.
-def canChange(s1,s2):
 
-    cnt = 0
-
-    for t in range(len(s1)):
-
-        if s1[t] != s2[t]:
-            cnt += 1
-
-        if cnt > 1:
-            return False
-
-    return True
-
-
-def solution(begin, target, words):
-    answer = 0
-
+def solution(tickets):
+    answer = []
+    temp = []
     que = deque()
-    que.append([begin,0,0])
 
-    l = len(words)
+    for i, t in enumerate(tickets):
 
-    while que:
+        # 우선 인천 시작 다 append
+        if t[0] == "ICN":
+            temp.append([t[0], t[1],i])
 
-        #print(que)
+    # 사전 순 정렬
+    temp.sort(key= lambda x:x[1])
 
-        # node[0] = string, node[1] = cnt, node[2] = answer
-        node = que.popleft()
+    for i, k in enumerate(temp):
 
-        if node[1] >= len(words):
-            continue
+        que.clear()
+        answer.append([])
+        tickets_copy = [items[:] for items in tickets]
 
-        for t in range(l):
+        que.append([k[0], k[1]])
+        answer[i].append(k[0])
+        answer[i].append(k[1])
 
-            # 변화시킬 수 있는 경우 -> 하나빼고 다 같은 경우만이다.
-            if not canChange(node[0], words[t]):
-                continue
+        idx = int(k[2])
+        tickets_copy[idx][0], tickets_copy[idx][1] = "0", "0"
 
-            for i,c in enumerate(words[t]):
+        while que:
+            print(tickets_copy)
+            node = que.pop()
 
-                # 다른 부분에 있어서 바꾼다.
-                if c != node[0][i]:
-                    tmp = list(node[0])
-                    tmp[i] = c
+            for t in tickets_copy:
+                if node[1] == t[0]:
+                    que.append([t[0], t[1]])
+                    answer[i].append(t[1])
+                    t[0], t[1] = "0", "0"
+        print("-----------------")
 
-                    t = [''.join(tmp),node[1] + 1,node[2] + 1]
-
-                    # target과 똑같으면 return
-                    if t[0] == target:
-                        return t[2]
-
-                    # 아닐 경우 que에 push
-                    if t not in que:
-                        que.append(t)
-
-                    # 다른 부분은 하나밖에 없기 때문에 break
-                    break
-
+    # for a in answer:
+    #     if len(a) == len(tickets)
     return answer
 
-begin = eval(input())
-target = eval(input())
-words = eval(input())
+tickets = eval(input())
 
-print(solution(begin, target, words))
+print(solution(tickets))
 
 
 
