@@ -1,16 +1,32 @@
 import sys
 from collections import deque
 
+
 input = sys.stdin.readline
 
-n = int(input())
-rgb = [list(map(int, input().split())) for _ in range(n)]
+def solution(N, number):
 
-for i in range(1,n):
+    answer = 1
+    arr = [None] + [{int(str(N) * i)} for i in range(1,9)]
 
-    # 결국 같은 색이 연속해서 못나오기 때문에!! 다른 색의 값의 min값을 취한다.
-    rgb[i][0] = rgb[i][0] + min(rgb[i-1][1], rgb[i-1][2])
-    rgb[i][1] = rgb[i][1] + min(rgb[i-1][0],rgb[i-1][2])
-    rgb[i][2] = rgb[i][2] + min(rgb[i - 1][0], rgb[i - 1][1])
+    for i in range(1,9):
+        for j in range(1,i):
+            for num1 in arr[j] :
+                for num2 in arr[i-j]:
+                    arr[i].add(num1 + num2)
+                    arr[i].add(num1 - num2)
+                    arr[i].add(num1 * num2)
 
-print(min(rgb[n-1]))
+                    if num2:
+                        arr[i].add(num1 // num2)
+
+        if number in arr[i] :
+            print(arr)
+            return i
+
+    return answer
+
+N = int(input())
+number = int(input())
+
+print(solution(N, number))
