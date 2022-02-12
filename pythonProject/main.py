@@ -4,58 +4,57 @@ from collections import deque
 
 input = sys.stdin.readline
 
-def solution(n, edge):
 
-    dict = {}
-    visited = {}
+def solution(n, results):
+    answer = 0
+    out_dic = {}
+    in_dic = {}
 
-    # visited 딕
+    for i in range(1,n + 1):
+        out_dic[i] = []
+        in_dic[i] = []
+
+    for r in results:
+        out_dic[r[0]].append(r[1])
+        #out_dic[r[0]].append(r[1])
+
+    none_out = [i for i in range(1,n+1)]
+
+    for x in out_dic:
+        for k in out_dic[x]:
+            if k in none_out:
+                none_out.remove(k)
+
+    print(none_out)
+
+    def dfs(ori):
+        stack = deque()
+        stack.append(ori)
+
+        while stack:
+
+
+            node = stack.pop()
+
+            for x in out_dic[node]:
+                stack.append(x)
+
+                if node not in in_dic[x]:
+                    in_dic[x].append(node)
+
+    for i in range(1,n + 1):
+        dfs(i)
+
+    print(out_dic)
+    print(in_dic)
+
     for i in range(1, n + 1):
-        visited[i] = False
+        if len(out_dic[i]) + len(in_dic[i]) == n - 1:
+            answer += 1
 
-    # 딕셔너리 형식에 양방향 노드 추가.
-    for e in edge:
-
-        if e[0] not in dict:
-            dict[e[0]] = [e[1]]
-        else:
-            dict[e[0]].append(e[1])
-
-        if e[1] not in dict:
-            dict[e[1]] = [e[0]]
-        else:
-            dict[e[1]].append(e[0])
-
-    que = deque()
-
-    que.append([1,0])
-    answer = [0]
-    visited[1] = True
-
-    # bfs 돌린다~
-    while que:
-
-        # node[0] = number, node[1] = visit cnt
-        node = que.popleft()
-
-        for n in dict[node[0]]:
-
-            # list에서 not in이 아니라 indexing을 이용한 풀이.
-            if not visited[n]:
-                que.append([n,node[1] + 1])
-                visited[n] = True
-                answer.append(node[1] + 1)
-    #print(answer)
-
-    cnt = 0
-    m = max(answer)
-    for i in answer:
-        if i == m:
-            cnt+=1
-
-    return cnt
+    return answer
 
 n = int(input())
-vertex = eval(input())
+results = eval(input())
 
-print(solution(n, vertex))
+print(solution(n, results))
