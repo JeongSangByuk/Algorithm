@@ -18,6 +18,7 @@ def solution(arrows):
         print(visit)
 
         # 노드가 없는 지점에서 교차하는 지점이 생긴다!
+        # x2 씩 움직이면서 가상의 노드를 생성하는 방식
         for _ in range(2):
             nx = x + dx[a]
             ny = y + dy[a]
