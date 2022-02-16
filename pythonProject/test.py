@@ -1,8 +1,6 @@
+import sys
+from collections import deque, defaultdict
 
-from collections import defaultdict
+input = sys.stdin.readline
 
-a = defaultdict(list)
-
-a[(1,1)].append(12)
-
-print((1,21) in a)
+print(map(int, input().split()).)
