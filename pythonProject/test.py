@@ -3,4 +3,6 @@ from collections import deque, defaultdict
 
 input = sys.stdin.readline
 
-print(map(int, input().split()).)
+a = 14523
+
+print(list(str(a)).sort())
