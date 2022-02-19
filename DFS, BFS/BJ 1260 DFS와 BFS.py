@@ -31,18 +31,16 @@ def dfs(start):
     visit = []
 
     while stack:
-
+        #print(stack)
         node = stack.pop()
 
-        # 스택에는 들어가도 visit 배열에는 안들어가게끔
-        if node in visit:
-            continue
+        if node not in dic:
+            visit.append(node)
+            break
 
-        visit.append(node)
-
-        for i in reversed(dic[node]) :
-            if i not in visit:
-                stack.append(i)
+        if node not in visit:
+            visit.append(node)
+            stack.extend(reversed(dic[node]))
 
     visit = map(str,visit)
     print(' '.join(visit))
@@ -57,10 +55,14 @@ def bfs(start):
 
         node = que.popleft()
 
+        if node not in dic:
+            break
+
         for i in dic[node]:
 
             if i not in visit:
-
+                if i not in dic:
+                    break
                 visit.append(i)
                 que.append(i)
 
