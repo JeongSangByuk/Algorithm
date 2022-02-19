@@ -3,6 +3,9 @@ from collections import deque, defaultdict
 
 input = sys.stdin.readline
 
-a = 14523
+a = "14523"
 
-print(list(str(a)).sort())
+
+a += "2"*3
+
+print(a)
