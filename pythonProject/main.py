@@ -5,61 +5,51 @@ import itertools
 
 input = sys.stdin.readline
 
-# n 정점 개수, m 간선 개수
-n, m = map(int, input().split())
+# 상하좌우
+dy, dx = [1,-1,0,0], [0,0,-1,1]
 
-dic = {}
-visited = {}
+h, w = map(int, input().split())
 
-# 간선 추가
-for i in range(m):
+g = [input().strip() for _ in range(h)]
+answer = 0
 
-    t1, t2 = map(int, input().split())
+def bfs():
 
-    if t1 in dic:
-        dic[t1].append(t2)
-    else:
-        dic[t1] = [t2]
-        visited[t1] = False
-
-    if t2 in dic:
-        dic[t2].append(t1)
-    else:
-        dic[t2] = [t1]
-        visited[t2] = False
-
-def bfs(start):
+    global answer
 
     que = deque()
 
-    que.append(start)
-    visited[start] = True
+    history = [0] * 26
+    history[ord(g[0][0]) - ord('A')] = 1
+
+    que.append([(0,0),history,0])
 
     while que:
 
+        print(que)
+
+        # node[0] = y,x , node[1] = history, node[2] = cnt
         node = que.popleft()
 
-        for t in dic[node]:
+        for i in range(4):
 
-            if not visited[t]:
-                visited[t] = True
-                que.append(t)
+            y = node[0][0] + dy[i]
+            x = node[0][1] + dx[i]
 
-cnt = 0
+            if y < 0 or y >= h:
+                continue
 
-for t in dic:
+            if x < 0 or x >= w:
+                continue
 
-    if not visited[t] :
-        bfs(t)
-        cnt += 1
+            if node[1][ord(g[y][x]) - ord('A')] == 0:
 
-cnt_visited = 0
-for t in visited:
-    if visited[t]:
-        cnt_visited += 1
+                tmp_history = node[1][:]
+                answer = node[2] + 1
 
-if m == 0:
-    print(n)
-else:
-    print(cnt + n - cnt_visited)
+                tmp_history[ord(g[y][x]) - ord('A')] = 1
+                que.append([(y,x), tmp_history, node[2] + 1])
 
+bfs()
+
+print(answer)
