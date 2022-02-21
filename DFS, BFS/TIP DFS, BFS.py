@@ -47,6 +47,19 @@ def dfs(start):
     visit = map(str,visit)
     print(' '.join(visit))
 
+
+visited = []
+
+def dfs2(start):
+
+    visited.append(start)
+
+    for node in dic[start]:
+        if node not in visited:
+            print(node)
+            dfs2(node)
+
+
 def bfs(start):
 
     que = deque()
@@ -67,8 +80,8 @@ def bfs(start):
     visit = map(str,visit)
     print(' '.join(visit))
 
-dfs(v)
-bfs(v)
+dfs2(v)
+#bfs(v)
 
 
 
