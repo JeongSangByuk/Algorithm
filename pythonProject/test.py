@@ -1,34 +1,38 @@
 import sys
+import heapq
+from collections import deque, defaultdict
+import itertools
 
-# 좌, 하, 우, 상
-dx = [-1, 0, 1, 0]
-dy = [0, -1, 0, 1]
+input = sys.stdin.readline
 
+# 상하좌우
+dy, dx = [1,-1,0,0], [0,0,-1,1]
 
-def BFS(x, y):
+h, w = map(int, input().split())
+
+g = [list(input().strip()) for _ in range(h)]
+answer = 0
+
+#print(g)
+
+history = set()
+
+def dfs(y, x, cnt) :
     global answer
-    q = set([(x, y, board[x][y])])
+    answer = max(answer, cnt)
 
-    while q:
-        print(q)
-        x, y, ans = q.pop()
-        print("pop = ", x,y,ans)
+    for i in range(4):
 
-        # 좌우상하 갈 수 있는지 살펴본다
-        for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
+        ny = y + dy[i]
+        nx = x + dx[i]
 
-            # index 벗어나지 않는지 체크하고, 새로운 칸이 중복되는 알파벳인지 체크한다
-            if ((0 <= nx < R) and (0 <= ny < C)) and (board[nx][ny] not in ans):
-                #print(q)
-                q.add((nx,ny,ans + board[nx][ny]))
-                answer = max(answer, len(ans)+1)
+        if 0 <= nx < w and 0 <= ny < h and not g[ny][nx] in history:
+            history.add(g[ny][nx])
+            dfs(ny,nx, cnt + 1)
+            history.remove(g[ny][nx])
 
+# dfs 풀이
+history.add(g[0][0])
+dfs(0,0,1)
 
-R, C = map(int, sys.stdin.readline().split())
-board = [list(sys.stdin.readline().strip()) for _ in range(R)]
-
-answer = 1
-BFS(0, 0)
 print(answer)

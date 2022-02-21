@@ -52,6 +52,35 @@ def bfs():
                 answer = max(answer,len(tmp_history) + 1)
                 que.add((ny,nx,tmp_history+g[ny][nx]))
 
-bfs()
+history = set()
+
+# dfs 풀이
+def dfs(y, x, cnt) :
+    global answer
+    answer = max(answer, cnt)
+
+    for i in range(4):
+
+        ny = y + dy[i]
+        nx = x + dx[i]
+
+        if ny < 0 or ny >= h:
+            continue
+
+        if nx < 0 or nx >= w:
+            continue
+
+        if g[ny][nx] not in history:
+            history.add(g[ny][nx])
+            dfs(ny,nx, cnt + 1)
+            history.remove(g[ny][nx])
+
+
+# bfs 풀이
+#bfs()
+
+# dfs 풀이
+history.add(g[0][0])
+dfs(0,0,1)
 
 print(answer)

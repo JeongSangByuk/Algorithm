@@ -34,15 +34,11 @@ def dfs(start):
 
         node = stack.pop()
 
-        # 스택에는 들어가도 visit 배열에는 안들어가게끔
-        if node in visit:
-            continue
+        if node not in visit:
+            visit.append(node)
 
-        visit.append(node)
-
-        for i in reversed(dic[node]) :
-            if i not in visit:
-                stack.append(i)
+            for i in reversed(dic[node]) :
+                    stack.append(i)
 
     visit = map(str,visit)
     print(' '.join(visit))
