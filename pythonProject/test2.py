@@ -1,13 +1,19 @@
 
-a = set()
-# b = set([(2,2,123)])
 
-a.add((1,2,3))
+import time
 
-a.add((1,2,3))
+a = "123123"
+b = list(a)
 
-a.add((1,2,3)
+start =time.time()
+print(a[2])
+
+print((time.time() - start) * 100000)
+
+start = time.time()
+
+print(b[2])
+print((time.time() - start) * 100000)
 
 
-print(a)
 #print(b)

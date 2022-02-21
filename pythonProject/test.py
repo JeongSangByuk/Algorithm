@@ -5,34 +5,12 @@ import itertools
 
 input = sys.stdin.readline
 
-# 상하좌우
-dy, dx = [1,-1,0,0], [0,0,-1,1]
+a = set()
 
-h, w = map(int, input().split())
+a.add((1,1))
+a.add((1,2))
+a.add((1,3))
+a.add((1,4))
 
-g = [list(input().strip()) for _ in range(h)]
-answer = 0
+print((1,5) in a)
 
-#print(g)
-
-history = set()
-
-def dfs(y, x, cnt) :
-    global answer
-    answer = max(answer, cnt)
-
-    for i in range(4):
-
-        ny = y + dy[i]
-        nx = x + dx[i]
-
-        if 0 <= nx < w and 0 <= ny < h and not g[ny][nx] in history:
-            history.add(g[ny][nx])
-            dfs(ny,nx, cnt + 1)
-            history.remove(g[ny][nx])
-
-# dfs 풀이
-history.add(g[0][0])
-dfs(0,0,1)
-
-print(answer)
