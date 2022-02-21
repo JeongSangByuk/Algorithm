@@ -26,8 +26,8 @@ for i in range(k):
 
 visited = set()
 
-def dfs(y,x,answer):
-
+def dfs(y,x):
+    global answer
     for i in range(4):
 
         ny = y + dy[i]
@@ -36,24 +36,24 @@ def dfs(y,x,answer):
         if 0 <= ny < n and 0 <= nx < m and not (ny,nx) in visited and\
             g[ny][nx] != 1:
 
+            answer += 1
             g[ny][nx] = 1
             visited.add((ny,nx))
-            print(answer)
-            answer = dfs(ny,nx, answer + 1)
+            dfs(ny,nx)
 
-    return answer
 
 cnt = 0
 box_num = []
-
+answer = 0
 for i in range(n):
     for j in range(m):
 
         if not (i,j) in visited and g[i][j] == 0:
+            answer = 0
             visited.add((i,j))
-            a = dfs(i,j,0)
+            dfs(i,j)
             cnt += 1
-            box_num.append(a + 1)
+            box_num.append(answer + 1)
 
 print(cnt)
 
