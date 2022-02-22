@@ -12,5 +12,8 @@ a.add((1,2))
 a.add((1,3))
 a.add((1,4))
 
-print((1,5) in a)
+b = set(a)
+b.remove((1,1))
+print(a)
+print(b)
 
