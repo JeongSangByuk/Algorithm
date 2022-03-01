@@ -3,78 +3,59 @@ import heapq
 from collections import deque, defaultdict
 import itertools
 
-sys.setrecursionlimit(100000)
+sys.setrecursionlimit(10**9)
 
 input = sys.stdin.readline
 
-n, m = map(int, input().split())
+k = int(input())
 
-g = [list(map(int, input().split())) for _ in range(n)]
+dic = {}
 
-dy,dx = [-1,1,0,0],[0,0,-1,1]
+for i in range(k):
+    dic[i + 1] = []
 
-def dfs(y,x,visited):
+for i in range(k - 1):
+    v1, v2,w = map(int, input().split())
+    dic[v1].append((v2,w))
+    dic[v2].append((v1, w))
 
-    visited.add((y,x))
-
-    # 동서남북 dfs
-    for k in range(4):
-        ny = y + dy[k]
-        nx = x + dx[k]
-
-        if 0 <= ny < n and 0 <= nx < m:
-
-            if g[ny][nx] != 0 and (ny,nx) not in visited:
-                dfs(ny,nx,visited)
+l = list(itertools.combinations(list(dic.keys()),2))
 
 answer = 0
 
-while True:
+#print(dic)
 
-    answer += 1
+def dfs(now, end, visited, w):
 
-    tmp_g = [item[:] for item in g]
+    visited.add(now)
 
-    for i in range(n):
-        for j in range(m):
+    for i in dic[now]:
 
-            if g[i][j] != 0:
+        if i[0] not in visited:
 
-                # 동서남북 빙하 녹이기
-                for k in range(4):
+            if i[0] == end:
+                return w + i[1]
 
-                    ny = i + dy[k]
-                    nx = j + dx[k]
+            visited.add(i[0])
 
-                    if 0 <= ny < n and 0 <= nx < m:
-                        if g[ny][nx] == 0:
-                            tmp_g[i][j] -= 1
+            ans = dfs(i[0],end,visited,w + i[1])
 
-                    if tmp_g[i][j] == 0:
-                        break
-    g = tmp_g[:]
+            if ans > 0:
+                return ans
 
-    cnt = 0
+    return 0
+
+answer = []
+
+for v in l:
     visited = set()
+    #print(v[0],v[1],dfs(v[0],v[1],visited, 0))
+    answer.append(dfs(v[0],v[1],visited, 0))
 
-    for i in range(n):
-        for j in range(m):
+# visited = set()
+# print(dfs(1,4,visited,0))
 
-            if g[i][j] != 0 and (i,j) not in visited:
-                dfs(i,j,visited)
-                cnt += 1
-
-    #print(cnt)
-
-    if cnt > 1:
-        print(answer)
-        break
-
-    elif cnt == 0:
-        print(0)
-        break
-
-
+print(max(answer))
 
 
 
