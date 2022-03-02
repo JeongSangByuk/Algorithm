@@ -7,55 +7,38 @@ sys.setrecursionlimit(10**7)
 
 input = sys.stdin.readline
 
-m,n = map(int, input().split())
+n, k = map(int, input().split())
 
-g = [list(map(int, input().split())) for _ in range(n)]
 
-dy, dx = [-1, 1, 0 , 0], [0,0,1,-1]
+que = deque()
+que.append((n,0))
+visited = set()
+visited.add(n)
 
-answer = 0
+while que:
 
-def bfs(l) :
+    #print(que)
+    node = que.popleft()
 
-    global answer
+    if node[0] == k:
+        print(node[1])
+        break
 
-    que = deque(l)
+    elif node[0] < 0:
+        continue
 
-    while que:
+    elif node[0] > 200000:
+        continue
 
-        # (y,x, cnt)
-        node = que.popleft()
+    if (node[0] - 1) not in visited:
+        que.append((node[0] - 1, node[1] + 1))
+        visited.add((node[0] - 1))
 
-        for i in range(4):
+    if (node[0] + 1) not in visited:
+        que.append((node[0] + 1, node[1] + 1))
+        visited.add((node[0] + 1))
 
-            ny = node[0] + dy[i]
-            nx = node[1] + dx[i]
-            cnt = node[2]
-
-            if 0 <= ny < n and 0 <= nx < m and g[ny][nx] == 0 :
-                g[ny][nx] = 1
-                que.append((ny,nx,cnt + 1))
-
-                if answer < cnt + 1:
-                    answer = cnt + 1
-
-point = []
-
-# 토마토가 있는 point 찾기
-for i in range(n):
-    for j in range(m):
-
-        if g[i][j] == 1:
-            point.append((i,j,0))
-
-bfs(point)
-
-# 만약 bfs를 다돌았는데도 0이 남아 있는 경우
-for i in range(n):
-    for j in range(m):
-
-        if g[i][j] == 0:
-            answer = -1
-            break
-
-print(answer)
+    if (node[0] * 2) not in visited:
+        if node[0] * 2 <= k + 1:
+            que.append((node[0] * 2, node[1] + 1))
+            visited.add((node[0] * 2))
