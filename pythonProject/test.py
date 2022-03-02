@@ -5,9 +5,10 @@ import itertools
 
 input = sys.stdin.readline
 
-l = [[1,2],[3,4]]
 
-l2 = [[1,2],[0,4]]
+l = [1,2,3]
 
-if l == l2 :
-    print(12)
+i = -4
+
+if i >= 0 and l[i] != 1:
+    print("qwe")
