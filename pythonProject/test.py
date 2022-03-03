@@ -5,7 +5,8 @@ import itertools
 
 input = sys.stdin.readline
 
+b = set()
+b.add(1)
+a = (1,2,3,b)
 
-l = [1,2,3]
-
-print(*l)
+print(a)

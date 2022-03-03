@@ -7,42 +7,37 @@ sys.setrecursionlimit(10**7)
 
 input = sys.stdin.readline
 
-n = int(input())
+n, m = map(int, input().split())
 
-dy, dx = [-1,-2,-2,-1,1,2,2,1],[-2,-1,1,2,-2,-1,1,2]
+g = [list(input().strip()) for _ in range(n)]
 
-answer = []
+dy, dx = [-1,1,0,0],[0,0,-1,1]
 
-for case in range(n):
-
-    k = int(input())
-
-    start_x, start_y = map(int, input().split())
-    end_x, end_y = map(int, input().split())
+def bfs():
 
     que = deque()
-    que.append((start_x,start_y,0))
-
     visited = set()
-    visited.add((start_x,start_y))
+    visited.add((0,0))
+    que.append((0,0,visited,1))
 
-    while que:
-        x, y, cnt = que.popleft()
+    while que :
 
-        if x == end_x and y == end_y:
-            answer.append(cnt)
-            break
+        print(que)
 
-        for i in range(8):
+        y, x,tmp_visited,cnt = que.popleft()
 
-            nx = x + dx[i]
+        for i in range(4):
+
             ny = y + dy[i]
+            nx = x + dx[i]
 
-            if 0 <= nx < k and 0 <= ny < k and (nx,ny) not in visited:
-                que.append((nx,ny,cnt + 1))
-                visited.add((nx,ny))
+            if 0 <= ny < n and 0 <= nx < m and (ny, nx) not in tmp_visited and g[ny][nx] == '0':
 
+                if ny == n - 1 and nx == m - 1:
+                    return cnt + 1
 
-print(*answer, sep = '\n')
+                v = tmp_visited.copy()
+                v.add((ny,nx))
+                que.append((ny,nx,v,cnt + 1))
 
-
+print(bfs())
