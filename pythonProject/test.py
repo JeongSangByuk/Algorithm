@@ -1,12 +1,6 @@
-import sys
-import heapq
-from collections import deque, defaultdict
-import itertools
 
-input = sys.stdin.readline
+m = 4
+n = 3
+visited = [[[0] * 2 for _ in range(m)] for _ in range(n)]
 
-b = set()
-b.add(1)
-a = (1,2,3,b)
-
-print(a)
+print(visited)
