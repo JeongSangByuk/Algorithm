@@ -4,7 +4,7 @@
 
 <br/>
 
-#### 📚 문제 분류
+### 📚 PS CATEGORY
 - DFS/BFS
 - Greedy
 - Dynamic Programming
@@ -15,19 +15,19 @@
 
 </br>
 
-#### 📚 문제 사이트
+### 📚 PS SITE
 - <a href="https://www.acmicpc.net/user/jsb100800"/>Baekjoon</a>
 - Programmers
 
 </br>
 
-#### 📚 현재 목표
-- '백준 알고리즘 분류' 각각 카테고리마다 1페이지 다뿌시기ㅎㅎ.
-- 감각 까먹지 않게 꾸준히 PS 꾸준히 병행하기.
+### 📚 PS GOALS
+- '백준 알고리즘 분류' 각각 카테고리마다 1페이지 상위 20문제 다뿌시기ㅎㅎ.
+- ~~프로그래머스 고득점 kit 뿌시기. **[2022-02-15 달성]**~~
 
 </br>
 
-#### 📚 PS 메모
+### 📚 PS MEMO
 
 <details>
 <summary>메모리 사용량 : 사전 > 리스트</summary>
