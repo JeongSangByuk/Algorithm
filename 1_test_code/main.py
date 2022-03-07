@@ -76,17 +76,12 @@ def bfs():
                     que.append((nry,nrx,nby,nbx,cnt + 1))
     return -1
 
-print(bfs())
+answer = bfs()
 
-
-
-
-
-
-
-
-
-
+if answer == -1:
+    print(0)
+else:
+    print(1)
 
 
 
