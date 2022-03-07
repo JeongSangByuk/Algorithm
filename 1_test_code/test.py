@@ -1,6 +1,7 @@
 
-m = 4
-n = 3
-visited = [[[0] * 2 for _ in range(m)] for _ in range(n)]
+arr = []
+
+visited = [[[[False]*3 for _ in range(2)] for _ in range(3)] for _ in range(2)]
 
 print(visited)
+print(visited[1][2][1][2])
