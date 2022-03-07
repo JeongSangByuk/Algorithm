@@ -11,6 +11,7 @@ g = [list(map(str, input().strip())) for _ in range(n)]
 
 # 상하좌우
 dy, dx = [-1,1,0,0],[0,0,-1,1]
+direct = ['U','D','L','R']
 
 # 중복 방지
 visited = set()
@@ -18,6 +19,7 @@ visited = set()
 red_init = [0,0]
 blue_init = [0,0]
 
+# 첫 시작 찾기.
 for i in range(n):
     for j in range(m):
         if g[i][j] == 'R':
@@ -42,14 +44,14 @@ def move_ball(y,x,i):
 def bfs():
 
     que = deque()
-    que.append((red_init[0],red_init[1],blue_init[0],blue_init[1],0))
+    que.append((red_init[0],red_init[1],blue_init[0],blue_init[1],0,""))
 
     while que:
-        ry, rx, by, bx, cnt = que.popleft()
+        ry, rx, by, bx, cnt, path = que.popleft()
         visited.add((ry, rx, by, bx))
 
         if cnt >= 10:
-            return -1
+            return "", -1
 
         for i in range(4):
             nry, nrx, rcnt = move_ball(ry, rx, i)
@@ -59,7 +61,7 @@ def bfs():
 
                 # 탈출
                 if g[nry][nrx] == 'O':
-                    return cnt + 1
+                    return (path + direct[i]), cnt + 1
 
                 # 겹쳤을 때, 먼저 온애를 찾는다
                 if nrx == nbx and nry == nby:
@@ -72,8 +74,14 @@ def bfs():
 
                 if (nry,nrx,nby,nbx) not in visited:
                     visited.add((nry,nrx,nby,nbx))
-                    que.append((nry,nrx,nby,nbx,cnt + 1))
-    return -1
+                    que.append((nry,nrx,nby,nbx,cnt + 1,path+direct[i]))
+    return "", -1
 
-print(bfs())
+answer = bfs()
+
+if answer[0] == "":
+    print(answer[1])
+else:
+    print(answer[1])
+    print(answer[0])
 
