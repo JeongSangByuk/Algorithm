@@ -1,6 +1,6 @@
 
-arr = []
+a = 1
 
-p = ""
-p += "2"
-print(p)
+b = int(str(a) + "1")
+
+print(b+1)
