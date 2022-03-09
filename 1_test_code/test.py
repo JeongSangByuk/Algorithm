@@ -1,6 +1,7 @@
 
-a = 1
+import heapq
 
-b = int(str(a) + "1")
+s = "qwe"
 
-print(b+1)
+print(s.startswith("q"))
+
