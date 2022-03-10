@@ -1,7 +1,13 @@
 
 import heapq
+from collections import deque
 
-s = "qwe"
+que = deque()
+que.append(1)
+que.append(2)
+que.append(3)
+que.append(4)
+que.append(5)
 
-print(s.startswith("q"))
+print(que.pop())
 
