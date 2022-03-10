@@ -6,18 +6,20 @@ import heapq
 sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 
-n, m = map(int, input().split())
-g = list(map(int, input().split()))
-g.sort()
+s = input().strip()
+s1 = input().strip()
 
-now = 0
 answer = 0
-m -= 1
 
-for i in range(len(g)):
+l = len(s1)
 
-    if now < g[i]:
-        now = g[i] + m
+i = 0
+while i <= len(s) - l:
+
+    if s[i:i+l] == s1:
         answer += 1
+        i += l
+    else:
+        i += 1
 
 print(answer)
