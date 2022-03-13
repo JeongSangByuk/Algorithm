@@ -6,7 +6,6 @@ import heapq
 sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 
-s = "123"
-a = 123
+a = [[]]
 
-print( s== a)
+print(a[0])
