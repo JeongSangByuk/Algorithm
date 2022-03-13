@@ -6,58 +6,36 @@ import heapq
 sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 
-s = list(input().strip())
+n, m = map(int, input().split())
 
-s.sort()
+g = list(map(int, input().split()))
+n = len(g)
+g.sort()
 
-dic = {}
+s = []
 
-for i in range(len(s)):
-    if s[i] not in dic:
-        dic[s[i]] = 1
-    else:
-        dic[s[i]] += 1
+visit = set()
+ans = []
+def dfs(start):
 
-l = []
+    if len(s) == m:
+        t = ''.join(map(str,s))
+        if t not in visit:
+            visit.add(t)
+            ans.append(t)
+            #print(' '.join(map(str,s)))
+        return
 
-for i in dic.items():
-    l.append([i[0],i[1]])
+    for i in range(start, n):
+        s.append(g[i])
+        dfs(i)
+        s.pop()
 
+dfs(0)
+ans.sort()
+#print(ans)
 
-def solution():
-    ans = ""
+for i in range(len(ans)):
+    print(' '.join(ans[i]))
 
-    if len(s) % 2 == 0:
-
-        for i in range(len(l)):
-
-            # 홀수인게 하나라도 있으면 못만든다!
-            if l[i][1] % 2 != 0:
-                return "I'm Sorry Hansoo"
-
-        for i in range(len(l)):
-            ans += (l[i][0] * (l[i][1]//2))
-
-        return ans + ans[::-1]
-
-    else:
-        cnt = 0
-        odd = 0
-        for i in range(len(l)):
-
-            # 홀수인게 하나 이상 있으면 못만든다.
-            if l[i][1] % 2 != 0:
-                cnt += 1
-                odd = i
-
-            if cnt > 1:
-                return "I'm Sorry Hansoo"
-
-
-        l[odd][1] -= 1
-        for i in range(len(l)):
-            ans += (l[i][0] * (l[i][1]//2))
-
-        return ans + l[odd][0] + ans[::-1]
-
-print(solution())
+#print(visit)
