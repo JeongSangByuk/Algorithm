@@ -7,14 +7,9 @@ sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 
 n = int(input())
+rgb = [list(map(int, input().split())) for _ in range(n)]
 
-ans = [1,2,4]
-for i in range(3, 10):
-    ans.append(ans[i-3] + ans[i-2] + ans[i-1])
-
-for i in range(n):
-    k = int(input())
-    print(ans[k-1])
-
-
-
+for i in range(1,n):
+    rgb[i][0] = rgb[i][0] + min(rgb[i-1][1], rgb[i-1][2])
+    rgb[i][1] = rgb[i][1] + min(rgb[i-1][0],rgb[i-1][2])
+    rgb[i][2] = rgb[i][2] + min(rgb[i - 1][0], rgb[i - 1][1])
