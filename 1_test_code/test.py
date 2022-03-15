@@ -6,7 +6,5 @@ import heapq
 sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 
-s = "123"
-a = 123
-
-print( s== a)
+arr = [[0,0] for _ in range(100)]
+print(arr)
