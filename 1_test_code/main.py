@@ -3,26 +3,41 @@ from collections import deque
 import itertools
 import heapq
 
+# https://myjamong.tistory.com/317
+
 sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 
-k = int(input())
-ans = []
+str1 = list(input().strip())
+str2 = list(input().strip())
 
-for kk in range(k):
-    n = int(input())
-    g = [list(map(int, input().split())) for _ in range(2)]
-    dp = [item[:] for item in g]
+# 풀이 1
 
-    if n != 1:
+dp = [[0] * (len(str2) + 1) for _ in range((len(str1) + 1))]
 
-        dp[0][1] += g[1][0]
-        dp[1][1] += g[0][0]
+for i in range(1, len(str1) + 1):
+    for j in range(1, len(str2) + 1):
 
-        for i in range(2, n):
-            dp[0][i] += max(dp[1][i-2], dp[1][i-1])
-            dp[1][i] += max(dp[0][i-2], dp[0][i-1])
+        if str1[i - 1] == str2[j - 1]:
+            dp[i][j] = dp[i - 1][j - 1] + 1
+        else:
+            dp[i][j] = max(dp[i-1][j], dp[i][j-1])
 
-    ans.append(max(dp[0][n-1],dp[1][n-1]))
+print(dp[-1][-1])
 
-print(*ans, sep = '\n')
+#######################
+
+# 풀이2
+
+dp = [0] * len(str2)
+for i in range(len(str1)):
+    cnt = 0
+
+    for j in range(len(str2)):
+        if cnt < dp[j]:
+            cnt = dp[j]
+    
+
+
+
+
