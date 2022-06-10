@@ -3,6 +3,8 @@ from collections import deque
 import itertools
 import heapq
 
-str = '123'
+v = []
+a = {1,2,3}
+v.append(a)
 
-print('121' in str)
+print(len(a))
