@@ -41,24 +41,22 @@ def solution_combination() :
 
 def solution_backtracking():
 
-    visited = []
+    visited = set()
+    p = []
 
     def dfs(now, depth):
 
         global result
-        print(p, depth, visited)
 
-        if depth > 2:
-            return
+        #print(p , visited, depth)
 
-        if depth == ((n//2) - 1) and p not in visited:
+        if depth == (n//2) and tuple(p) not in visited:
 
             oppo_p = set([i for i in range(0, n)]) - set(p)
-            print(p,oppo_p)
-            visited.append(p)
-            visited.append(oppo_p)
 
-            print(visited)
+            visited.add(tuple(p))
+            visited.add(tuple(oppo_p))
+
             power = 0
             power_oppo = 0
 
@@ -71,19 +69,15 @@ def solution_backtracking():
             result = min(result, abs(power - power_oppo))
             return
 
-        p.add(now)
-
-        for i in range(now + 1,n):
-            p.add(i)
-            dfs(i,depth + 1)
+        for i in range(now,n):
+            p.append(i)
+            dfs(i + 1,depth + 1)
             p.remove(i)
 
-    for i in range(0, n):
-        p = set()
-        dfs(i,0)
+    dfs(0, 0)
 
 solution_backtracking()
-print(result);
+print(result)
 
 
 
