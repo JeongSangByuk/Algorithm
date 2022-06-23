@@ -4,6 +4,7 @@ import itertools
 import heapq
 
 
-a = [1,2,3]
-a.remove(2)
-print(a)
+a = ('a', 'b', 'e', 'i')
+
+
+print("".join(a))
