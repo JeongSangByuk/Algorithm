@@ -7,4 +7,4 @@ import heapq
 a = ('a', 'b', 'e', 'i')
 
 
-print("".join(a))
+print(a[2])
