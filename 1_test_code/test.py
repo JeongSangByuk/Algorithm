@@ -4,7 +4,7 @@ import itertools
 import heapq
 
 
-a = ('a', 'b', 'e', 'i')
+a = ('a', 'b')
 
-
-print(a[2])
+b,c = a
+print(b,c)
