@@ -4,7 +4,12 @@ import itertools
 import heapq
 
 
-a = ('a', 'b')
+d = deque()
 
-b,c = a
-print(b,c)
+d.append(1)
+d.append(2)
+d.append(3)
+
+print(list(itertools.islice(d,0,2)))
+
+print(d)
