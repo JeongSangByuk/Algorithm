@@ -7,17 +7,13 @@ import heapq
 sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 
-a = set()
+a =[[1,2,3],[2,3,4]]
 
-a.add(2)
 
-b = a.copy()
+map(max,a)
 
-b.add(3)
+s = ''.join(a)
 
-b.remove(2)
-
-print(a)
-print(b)
+print(s)
 
 
