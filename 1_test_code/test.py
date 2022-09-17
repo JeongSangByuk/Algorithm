@@ -7,13 +7,10 @@ import heapq
 sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 
-a =[[1,2,3],[2,3,4]]
 
+a = (1,2)
+b = (1,2)
 
-map(max,a)
-
-s = ''.join(a)
-
-print(s)
+print(a == b)
 
 
