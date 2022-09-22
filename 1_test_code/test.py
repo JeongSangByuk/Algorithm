@@ -1,16 +1,15 @@
 import copy
 import sys
 from collections import deque
+from _collections import defaultdict
 import itertools
 import heapq
 
 sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 
+dic = defaultdict(list)
 
-a = (1,2)
-b = (1,2)
-
-print(a == b)
+print(l)
 
 
