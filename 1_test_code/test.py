@@ -8,8 +8,7 @@ import heapq
 sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 
-dic = defaultdict(list)
 
-print(l)
+print(INF)
 
 
