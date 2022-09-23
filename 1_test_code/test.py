@@ -8,7 +8,11 @@ import heapq
 sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 
+v = set()
+q = deque()
+q.append(1)
 
-print(INF)
+v.add(tuple(q))
 
+print(v)
 
