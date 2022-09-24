@@ -9,29 +9,31 @@ import heapq
 input = sys.stdin.readline
 
 def solution(queue1, queue2):
-    answer = 0
-    queue1, queue2 = deque(queue1), deque(queue2)
-    sum1, sum2 = sum(queue1), sum(queue2)
+    q = queue1 + queue2
+    target = sum(q) // 2
 
-    for _ in range(4 * len(queue1)):
+    i, j = 0, len(queue1)-1
+    curr = sum(queue1)
+    count = 0
+    print(q)
+    while i < len(q) and j < len(q):
 
-        if sum1 > sum2:
-            sum1 -= queue1[0]
-            sum2 += queue1[0]
-            queue2.append(queue1.popleft())
+        print(i,j)
 
-        elif sum1 < sum2:
-            sum1 += queue2[0]
-            sum2 -= queue2[0]
-            queue1.append(queue2.popleft())
+        if curr == target:
+            return count
+
+        elif curr < target and j < len(q)-1:
+            j += 1
+            curr += q[j]
+
         else:
-            return answer
-        answer += 1
+            curr -= q[i]
+            i += 1
+
+        count += 1
+
     return -1
-
-
-
-    return answer
 
 
 queue1 = eval(input())
