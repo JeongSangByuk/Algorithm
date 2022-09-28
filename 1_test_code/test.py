@@ -8,7 +8,14 @@ import heapq
 sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 
+d = [2,3]
 
-print(INF)
+d2 = [4,5]
+
+l = d + d2
+
+heapq.heapify(l)
+
+print(l)
 
 
