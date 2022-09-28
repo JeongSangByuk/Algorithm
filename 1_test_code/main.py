@@ -6,7 +6,6 @@ from collections import defaultdict
 import itertools
 import heapq
 
-sys.setrecursionlimit(10 ** 7)
 input = sys.stdin.readline
 
 n = int(input())
@@ -56,8 +55,6 @@ while gn:
             answer += t1
 
 print(answer)
-
-
 
 
 
