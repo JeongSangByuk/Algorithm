@@ -8,10 +8,17 @@ import heapq
 sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 
+v = [[1,[]] for i in range (10)]
+v[0][1].append(2)
+v[3][1].append(2)
 
+a = v[3][1][:]
+a.append(4)
 
-for i in range((i + 1, i - 1, 2 * i)):
-    print(i)
+v[3][1] = a[:]
+
+print(v)
+print(a)
 
 
 
