@@ -33,8 +33,8 @@ def dijkstra(start):
         # 가장 최단거리가 짧은 노드에 대한 정보 꺼내기
         dist, now = heapq.heappop(q)
 
-        # 이미 처리된 노드였다면 무시
-        # 별도의 visited 테이블이 필요없이, 최단거리테이블을 이용해 방문여부 확인
+        # 이미 처리된 노드였다면 무시, 별도의 visited 테이블이 필요없이, 최단거리테이블을 이용해 방문여부 확인
+        # 이미 처리된 거리가 지금까지의 거리 보다 길면 continue 해야함.
         if distance[now] < dist:
             continue
         # 선택된 노드와 인접한 노드를 확인
