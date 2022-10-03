@@ -8,36 +8,17 @@ import heapq
 
 input = sys.stdin.readline
 
+a = set()
+b= set()
+a.add((1,2))
+b.add((1,2,3))
+b.add((2,3))
+a.update(b)
 
-n = int(input())
+print(a)
+print(b)
 
-def bfs():
-    que = deque()
-    que.append((1,0,0))
-    visited = set()
-    visited.add((1,0,0))
+a.difference_update(b)
 
-    while que:
-        #print(que)
-        display, clib_board, cnt = que.popleft()
-
-        if display == n:
-            return cnt
-
-        # 화면 to 클립보드
-        if display > 0 and (display, display, cnt+1) not in visited:
-            que.append((display, display, cnt+1))
-            visited.add((display, clib_board, cnt + 1))
-
-        # 클립보드 to 화면
-        if clib_board > 0 and (display + clib_board, clib_board, cnt+1) not in visited:
-            que.append((display + clib_board, clib_board, cnt+1))
-            visited.add((display + clib_board, clib_board, cnt + 1))
-
-        if display > 0 and (display - 1, clib_board, cnt+1) not in visited:
-            que.append((display - 1, clib_board, cnt+1))
-            visited.add((display - 1, clib_board, cnt+1))
-
-
-
-print(bfs())
+print(a)
+print(b)
