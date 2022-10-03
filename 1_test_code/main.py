@@ -8,63 +8,47 @@ import heapq
 
 input = sys.stdin.readline
 
-n, e = map(int, input().split())
-g = defaultdict(list)
 
-for i in range(e):
-    a, b, w = map(int, input().split())
-    g[a].append([b,w])
-    g[b].append([a,w])
+n, m = map(int, input().split())
+g = [list(map(int, input().split())) for _ in range(n)]
+dy, dx = [-1,1,0,0], [0,0,-1,1]
 
-u, v = map(int, input().split())
+cheese = deque()
+normal = set()
+cheese_cnt = 0
 
-#print(g)
-def bfs(start, end):
-
-    que = []
-    heapq.heappush(que, [0,start])
-    visited = [1e9] * (n + 1)
-    visited[start] = 0
-
-    while que:
-
-        d, node = heapq.heappop(que)
-
-        if visited[node] < d:
-            continue
-
-        for i in g[node]:
-            tnode, dt = i
-            new_d = d + dt
-
-            if new_d < visited[tnode]:
-                visited[tnode] = new_d
-                heapq.heappush(que, [new_d, tnode])
-
-    #print(visited)
-    return visited[end]
+for i in g:
+    for j in i:
+        if j == 1:
+            cheese_cnt += 1
+            cheese.append((i,j))
+        else:
+            normal.add((i,j))
 
 
-a,b,c = bfs(1,u), bfs(u,v), bfs(v, n)
-aa,bb,cc = bfs(1,v), bfs(v,u), bfs(u, n)
+def bfs():
+    cnt = 0
 
-a1, a2 = 0,0
+    while cheese:
+        cy,cx = cheese.popleft()
+        tmp = 0
 
-if a >= 1e9 or b >= 1e9 or c >= 1e9:
-    a1 = 1e9
-else:
-    a1 = sum((a,b,c))
+        for i in range(4):
+            if (cy,cx) in normal:
+                tmp += 1
 
-if aa >= 1e9 or bb >= 1e9 or cc >= 1e9:
-    a2 = 1e9
-else:
-    a2 = sum((aa,bb,cc))
+        if tmp >= 2:
+            normal.add(cy,cx)
 
-if a1 >= 1e9 and a2 >= 1e9:
-    print(-1)
-else:
-    print(min(a1,a2))
 
+        # 안없어진 경우
+        else:
+            cheese.append((cy,cx))
+
+
+
+
+bfs()
 
 
 
