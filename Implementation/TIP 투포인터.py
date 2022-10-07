@@ -8,6 +8,8 @@ import heapq
 
 input = sys.stdin.readline
 
+# 수열에서 합이 m이 되는 경우,
+
 n, m = map(int, input().split())
 g = list(map(int, input().split()))
 
