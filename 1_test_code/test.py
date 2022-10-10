@@ -8,14 +8,15 @@ import heapq
 
 input = sys.stdin.readline
 
-n = 4000000
-prime = [True for i in range(n + 1)]
+a = [-10, -10, 2, 3, 3, 6, 7, 10, 10, 10]
 
-for i in range(2, int(math.sqrt(n)) + 1):
-    if prime[i] == True:
+dic = defaultdict(int)
+for i in a:
+    dic[i] += 1
 
-        j = 2
+print(dic)
 
-        while i * j <= n:
-            prime[i * j] = False
-            j += 1
+a = list(set(a))
+a.sort()
+
+print(a)
