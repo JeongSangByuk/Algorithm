@@ -8,41 +8,39 @@ import heapq
 
 input = sys.stdin.readline
 
-n, m = map(int, input().split())
+n = int(input())
+g = list(list(map(int, input().split())) for i in range(n))
 
-g = defaultdict(list)
+sys.setrecursionlimit(10 ** 6)
+dy,dx = [-1,1,0,0],[0,0,-1,1]
+dp = [[0] * n for i in range(n)]
 
-for i in range(m):
-    a, b = map(int, input().split())
-    g[a].append(b)
-    g[b].append(a)
+def dfs(y,x):
 
-visited = set()
+    if dp[y][x]:
+        return dp[y][x]
 
-def dfs(node,cnt):
+    dp[y][x] = 1
 
-    if cnt == 4:
-        print(1)
-        exit()
+    for i in range(4):
 
-    for i in g[node]:
+        ny = y + dy[i]
+        nx = x + dx[i]
 
-        if i not in visited:
+        if 0 <= ny < n and 0 <= nx < n and g[y][x] < g[ny][nx]:
+            dp[y][x] = max(dp[y][x], dfs(ny,nx) + 1)
 
-            visited.add(i)
-            dfs(i, cnt + 1)
-            visited.remove(i)
+    return dp[y][x]
 
-    return False
-
+answer = 0
 
 for i in range(n):
+    for j in range(n):
+        answer = max(answer, dfs(i, j))
 
-    visited.add(i)
-    dfs(i,0)
-    visited.remove(i)
 
-print(0)
+print(answer)
+
 
 
 
