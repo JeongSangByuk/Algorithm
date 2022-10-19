@@ -8,9 +8,16 @@ import heapq
 
 input = sys.stdin.readline
 
-a = [-10, -10, 2, 3, 3, 6, 7, 10, 10, 10]
+a = set()
 
+a.add(1)
+a.add(2)
+a.add(3)
+b = a.copy()
+for i in a:
+    print(i)
+b.pop()
 
-a.remove(10)
-
+print(a)
+a.add(b)
 print(a)
