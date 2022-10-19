@@ -39,8 +39,7 @@ def is_connect(a, b):
     visited = set()
     que = deque()
 
-    t = a.pop()
-    a.add(t)
+    t = a[0]
 
     que.append(t)
     visited.add(t)
@@ -77,7 +76,7 @@ for i in range(1, n//2 + 1):
 
         #print(a,b)
 
-        if is_connect(a.copy(), b.copy()) and is_connect(b.copy(), a.copy()):
+        if is_connect(list(a), list(b)) and is_connect(list(b),list(a)):
             ans.append(abs(count(a) - count(b)))
 
 

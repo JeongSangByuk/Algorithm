@@ -8,16 +8,8 @@ import heapq
 
 input = sys.stdin.readline
 
-a = set()
+l = [1,2,3,4]
 
-a.add(1)
-a.add(2)
-a.add(3)
-b = a.copy()
-for i in a:
-    print(i)
-b.pop()
+l2 = [1,2]
 
-print(a)
-a.add(b)
-print(a)
+print(list(set(l) - set(l2)))
