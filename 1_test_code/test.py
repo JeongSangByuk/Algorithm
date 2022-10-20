@@ -8,8 +8,11 @@ import heapq
 
 input = sys.stdin.readline
 
-l = [1,2,3,4]
+a = set()
+a.add(1)
+a.add(2)
 
-l2 = [1,2]
-
-print(list(set(l) - set(l2)))
+b = set()
+b.add(3)
+a.update(b)
+print(a)
