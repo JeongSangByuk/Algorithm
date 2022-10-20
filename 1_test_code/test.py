@@ -8,11 +8,16 @@ import heapq
 
 input = sys.stdin.readline
 
-a = set()
-a.add(1)
-a.add(2)
+dic = dict()
 
-b = set()
-b.add(3)
-a.update(b)
-print(a)
+dic[(1,2)] = 1
+
+dic[(2,2)] = 2
+
+for i in dic:
+    print(i)
+    dic[i] = 3
+
+print(dic)
+
+print(list(dic.values()))
