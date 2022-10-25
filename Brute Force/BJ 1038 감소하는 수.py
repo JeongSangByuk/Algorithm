@@ -41,4 +41,4 @@ if ans != -1:
     print(ans)
 else:
     print(-1)
-
+    
