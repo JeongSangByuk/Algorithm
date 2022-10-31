@@ -11,14 +11,7 @@ sys.setrecursionlimit(10 ** 6)
 
 l = 0
 
-print(l | (1 << 3))
-
-
-
-
-
-
-
+print(11 & (1 << 20))
 
 
 
