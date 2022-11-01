@@ -9,78 +9,37 @@ import heapq
 input = sys.stdin.readline
 sys.setrecursionlimit(10 ** 6)
 
-m, n = map(int, input().split())
-g = [list(map(int, input().split())) for _ in range(n)]
+v, e = map(int, input().split())
+start = int(input())
+dic = defaultdict(list)
 
-# 서북동남
-dy, dx = [0, -1, 0, 1], [-1, 0, 1, 0]
-k = [0, 1, 2, 3]
-num = [1,2,4,8]
+visited = [9e9] * (v + 1)
 
-visited = set()
-wall = set()
+for i in range(e):
+    a,b,c = list(map(int, input().split()))
+    dic[a].append([b,c])
 
-def check(y, x, i):
+def bfs():
+    que = []
+    heapq.heappush(que, (0, start))
+    visited[start] = 0
 
-    if g[y][x] & (1 << k[i]):
-        return False
-    else:
-        return True
+    while que:
 
-def dfs(y, x, cnt):
+        w, node = heapq.heappop(que)
 
-    a = cnt
+        if visited[node] < w:
+            continue
 
-    for i in range(4):
+        for i in dic[node]:
+            if w + i[1] < visited[i[0]]:
+                visited[i[0]] = (w + i[1])
+                heapq.heappush(que, (w + i[1], i[0]))
 
-        ny = y + dy[i]
-        nx = x + dx[i]
-
-        # 갈수 있는 경우만,
-        if 0 <= ny < n and 0 <= nx < m and check(y, x, i) and (ny, nx) not in visited:
-            visited.add((ny, nx))
-            a = dfs(ny, nx, a + 1)
-
-    return a
+bfs()
+print(visited)
 
 
-def search():
-    ans = 0
-    ans2 = 0
-
-    for i in range(n):
-        for j in range(m):
-
-            if (i, j) not in visited:
-                visited.add((i, j))
-                ans2 = max(dfs(i, j, 1), ans2)
-                ans += 1
-
-    return ans,ans2
 
 
-result = search()
-print(result[0])
-print(result[1])
 
-# print(wall)
-
-ans3 = result[1]
-
-for i in range(n):
-    for j in range(m):
-
-        for c in range(4):
-
-            if not check(i,j,c):
-
-                g[i][j] -= num[k[c]]
-
-                visited.clear()
-
-                visited.add((i, j))
-                ans3 = max(ans3, dfs(i,j,1))
-
-                g[i][j] += num[k[c]]
-
-print(ans3)
