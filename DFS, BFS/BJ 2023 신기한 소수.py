@@ -19,7 +19,7 @@ def check_prime(k):
 
         if k % i == 0:
             return False
-
+        
     return True
 
 

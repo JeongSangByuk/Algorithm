@@ -19,3 +19,4 @@ for i in range(2, int(math.sqrt(n)) + 1):
         while i * j <= n:
             prime[i * j] = False
             j += 1
+
