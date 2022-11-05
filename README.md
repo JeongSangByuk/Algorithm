@@ -5,13 +5,24 @@
 <br/>
 
 ### 📚 PS CATEGORY
+**기본 유형**
+
+- 구현
+- 완전 탐색
 - DFS/BFS
-- Greedy
-- Dynamic Programming
-- Brute Force
-- Binary Search
-- Data Structure
-- Sorting
+- 그래프
+- 그리디
+- DP
+
+**응용 유형(코테전 한번 더 보고 가기)**
+
+- 이진탐색, 매개 변수 탐색 : 뼈대 문제(BJ 2805)
+- 투포인터 : 뼈대 문제(BJ 1806)
+- 비트마스킹
+- 최단 거리(다익스트라) : 뼈대 문제(BJ 1916)
+- 유니온 파인드
+- 누적합
+- 소수 판정(에라토네테네스의 체)
 
 </br>
 
