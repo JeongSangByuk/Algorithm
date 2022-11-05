@@ -11,7 +11,10 @@ sys.setrecursionlimit(10 ** 6)
 
 l = 0
 
-print(11 & (1 << 20))
+a = (1,2)
+b= (1,3)
+
+print(a == b)
 
 
 
