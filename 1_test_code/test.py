@@ -9,12 +9,10 @@ import heapq
 input = sys.stdin.readline
 sys.setrecursionlimit(10 ** 6)
 
-l = 0
+a = [1,2,3,4]
 
-a = (1,2)
-b= (1,3)
-
-print(a == b)
+for i in reversed(a):
+    print(i)
 
 
 
