@@ -11,9 +11,8 @@ sys.setrecursionlimit(10 ** 6)
 
 a = [1,2,3,4]
 
-for i in reversed(a):
-    print(i)
-
+a = [1] + a
+print(a)
 
 
 
