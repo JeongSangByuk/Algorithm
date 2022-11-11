@@ -11,7 +11,7 @@ sys.setrecursionlimit(10 ** 6)
 
 a = [1,2,3,4]
 
-a = [1] + a
+a = [1] + [2,3,3,4]
 print(a)
 
 
