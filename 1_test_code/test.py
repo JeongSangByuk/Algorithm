@@ -9,10 +9,9 @@ import heapq
 input = sys.stdin.readline
 sys.setrecursionlimit(10 ** 6)
 
-a = {1,2,3,4}
+visited = [[0] * 4 for _ in range(6)]
 
-for i in a:
-    print(i)
+print(visited)
 
 
 
