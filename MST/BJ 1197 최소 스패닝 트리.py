@@ -19,14 +19,12 @@ for i in range(e):
 
 edges.sort()
 
-def find(parent,x):
-
+def find(parent, x):
     if parent[x] != x:
         parent[x] = find(parent,parent[x])
     return parent[x]
 
-def union(parent, a ,b):
-
+def union(parent, a, b):
     a = find(parent, a)
     b = find(parent, b)
 
@@ -35,16 +33,25 @@ def union(parent, a ,b):
     else:
         parent[a] = b
 
-parent = [i for i in range(v + 1)]
+parent =list(i for i in range(v + 1))
 
 result = 0
 
-for i in edges:
+for i in range(e):
+    c, a, b = edges[i]
 
-    c,a,b = i
+    if find(parent, a) != find(parent,b):
+        union(parent,a,b)
+        result += c
 
-    if find(parent,a) != find(parent,b):
-        union(parenta,b,)
+# print(parent)
+print(result)
+
+
+
+
+
+
 
 
 
