@@ -9,42 +9,11 @@ import heapq
 input = sys.stdin.readline
 sys.setrecursionlimit(10 ** 6)
 
-v, e = map(int, map(int, input().split()))
+dic = dict()
 
-edges = []
+dic[((1,2),(2,2,))] = "t"
 
-for i in range(e):
-    a,b,c = map(int, input().split())
-    edges.append((c,a,b))
-
-edges.sort()
-
-def find(parent,x):
-
-    if parent[x] != x:
-        parent[x] = find(parent,parent[x])
-    return parent[x]
-
-def union(parent, a ,b):
-
-    a = find(parent, a)
-    b = find(parent, b)
-
-    if a < b:
-        parent[b] = a
-    else:
-        parent[a] = b
-
-parent = [i for i in range(v + 1)]
-
-result = 0
-
-for i in edges:
-
-    c,a,b = i
-
-    if find(parent,a) != find(parent,b):
-        union(parenta,b,)
+print(dic.keys())
 
 
 
