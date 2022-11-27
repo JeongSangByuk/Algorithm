@@ -10,16 +10,16 @@ input = sys.stdin.readline
 sys.setrecursionlimit(10 ** 6)
 
 n = int(input())
-dp = [5001] * (5001)
-dp[3] = 1
-dp[5] = 1
-_max = 100000
+g = [int(input()) for _ in range(n)] + [0] * 10000
 
-for i in range(6, n + 1):
-    a = dp[i - 3]
-    b = dp[i - 5]
-    dp[i] = min(a, b) + 1
+# dp 배열 -> 해당 계단을 밟았을 때의 최댓값
+dp = [0] * (10000 + 1)
+dp[0] = g[0]
+dp[1] = g[0] + g[1]
+dp[2] = max(g[0], g[1]) + g[2]
 
-result = -1 if dp[n] >= 5001 else dp[n]
-print(result)
+result = 0
+for i in range(3, n + 1):
+    dp[i] = max(dp[i - 3] + g[i - 1], dp[i - 2]) + g[i]
 
+print(dp[n - 1])
