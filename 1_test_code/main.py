@@ -1,3 +1,4 @@
+import math
 import sys
 from collections import deque
 import itertools
@@ -7,20 +8,34 @@ from bisect import bisect_left
 sys.setrecursionlimit(10 ** 7)
 input = sys.stdin.readline
 
-a = list(input().strip())
-b = str(input().strip())
+n, l = map(int, input().split())
+g = []
+for i in range(n):
+    g.append(list(map(int,input().split())))
+    g[-1][1] -= 1
 
-stack = []
-l = len(b)
+g.sort()
 
-for i in range(len(a)):
-    stack.append(a[i])
+end = 0
+answer = 0
 
-    if ''.join(stack[-l:]) == b:
-        for _ in range(l):
-            stack.pop()
+for i in g:
+    # print(end,answer)
 
-if stack:
-    print(''.join(stack))
-else:
-    print('FRULA')
+    # 이미 커버 된 경우
+    if i[0] <= end and i[1] <= end:
+        continue
+
+    if i[0] <= end and i[1] > end:
+
+        t = math.ceil(((i[1] - end) / l))
+
+        end += (t * l)
+        answer += t
+        continue
+
+    t = math.ceil(((i[1] - i[0] + 1) / l))
+    end = i[0] + t * l - 1
+    answer += t
+
+print(answer)
