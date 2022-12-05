@@ -9,6 +9,8 @@ import heapq
 input = sys.stdin.readline
 sys.setrecursionlimit(10 ** 6)
 
-a,b,c = 1000
-print(a,b,c)
+s = list("1234")
+
+print(s[-2:])
+
 
