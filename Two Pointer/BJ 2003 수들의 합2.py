@@ -11,19 +11,19 @@ input = sys.stdin.readline
 n, m = map(int, input().split())
 g = list(map(int, input().split()))
 
-s = 0
+_sum = 0
 end = 0
 cnt = 0
 
 for start in range(n):
 
-    while end < n and s < m:
-        s += g[end]
+    while end < n and _sum < m:
+        _sum += g[end]
         end += 1
 
-    if s == m:
+    if _sum == m:
         cnt += 1
 
-    s -= g[start]
+    _sum -= g[start]
 
 print(cnt)

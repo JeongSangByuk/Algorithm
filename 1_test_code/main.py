@@ -9,57 +9,24 @@ from bisect import bisect_left
 # sys.setrecursionlimit(10 ** 7)
 input = sys.stdin.readline
 
+n, m = map(int, input().split())
+g = list(map(int, input().split()))
 
-n = int(input())
-m = int(input())
+_sum = 0
+end = 0
+ans = 0
 
-dic = defaultdict(list)
+for start in range(n):
 
-for i in range(m):
-    a,b,c = map(int, input().split())
-    dic[a].append((b,c))
+    while _sum < m and end < n:
 
-start, end = map(int, input().split())
+        _sum += g[end]
+        end += 1
 
-def bfs(start, end):
+    if _sum == m:
+        ans += 1
 
-    que = []
-    heapq.heappush(que, (0, start))
-
-    v = [9e9 for _ in range(n + 1)]
-    v[start] = 0
-
-    while que:
-
-        d, now = heapq.heappop(que)
-
-        if v[now] < d:
-            continue
-
-        for i in dic[now]:
-
-            _next, _d = i
-            cost = d + _d
-
-            if cost < v[_next]:
-                v[_next] = cost
-                heapq.heappush(que, (cost, _next))
-
-    return v[end]
-
-print(bfs(start,end))
-
-
-
-
-
-
-
-
-
-
-
-
+    g[start]
 
 
 
