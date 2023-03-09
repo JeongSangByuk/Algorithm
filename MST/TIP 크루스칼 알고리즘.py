@@ -22,14 +22,17 @@ for i in range(e):
 # 가중치 기준 정렬
 edges.sort()
 
-def find(parent, x):
+# 부모 리스트 초기화
+parent =list(i for i in range(v + 1))
+
+def find(x):
 
     # 부모의 값이 다르다면 한번더 find
     if parent[x] != x:
         parent[x] = find(parent,parent[x])
     return parent[x]
 
-def union(parent, a, b):
+def union(a, b):
 
     # 각 정점의 부모 찾기
     a = find(parent, a)
@@ -40,9 +43,6 @@ def union(parent, a, b):
         parent[b] = a
     else:
         parent[a] = b
-
-# 부모 리스트 초기화
-parent =list(i for i in range(v + 1))
 
 result = 0
 
