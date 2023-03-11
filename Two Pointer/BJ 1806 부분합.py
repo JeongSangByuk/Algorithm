@@ -1,34 +1,37 @@
-import copy
-import sys
 import math
+import sys
 from collections import deque
 from collections import defaultdict
 import itertools
 import heapq
+from bisect import bisect_left
 
+# sys.setrecursionlimit(10 ** 7)
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
 g = list(map(int, input().split()))
 
-s = 0
+_sum = 0
+start = 0
 end = 0
-answer = 1e9
+
+result = 9e9
 
 for start in range(n):
 
-    while end < n and s < m:
-        s += g[end]
+    while end < n and _sum < m:
+        _sum += g[end]
         end += 1
 
-    if s >= m and (end - start) < answer:
-        answer = (end - start)
+    _len = end - start
+    if _sum >= m and result > _len:
+        result = _len
 
-    s -= g[start]
+    _sum -= g[start]
 
-if answer == 1e9:
-    print(0)
-else:
-    print(answer)
+result = 0 if result == 9e9 else result
+print(result)
+
 
 
