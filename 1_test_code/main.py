@@ -6,51 +6,37 @@ import itertools
 import heapq
 from bisect import bisect_left
 
-# sys.setrecursionlimit(10 ** 7)
+# https://blog.naver.com/jinhan814/222607789392
+
+sys.setrecursionlimit(10 ** 7)
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
-g = list(map(int, input().split()))
+g = list(int(input()) for i in range(m))
+g.sort()
 
-_sum = 0
-start = 0
-end = 0
+def check(mid):
+    cnt = 0
 
-result = 9e9
+    for i in g:
+        if i % mid == 0:
+            cnt += i // mid
+        else:
+            cnt += (i//mid) + 1
 
-for start in range(n):
+    return cnt <= n
 
-    while end < n and _sum < m:
-        _sum += g[end]
-        end += 1
+lo, hi = 0, g[m-1]
 
-    _len = end - start
-    if _sum >= m and result > _len:
-        result = _len
+while lo + 1 < hi:
+    mid = (lo + hi) // 2
 
-    _sum -= g[start]
+    if not check(mid):
+        lo = mid
+    else:
+        hi = mid
 
-result = 0 if result == 9e9 else result
-print(result)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(hi)
 
 
 

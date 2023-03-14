@@ -1,44 +1,41 @@
-import copy
-import sys
 import math
+import sys
 from collections import deque
 from collections import defaultdict
 import itertools
 import heapq
+from bisect import bisect_left
 
+sys.setrecursionlimit(10 ** 7)
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
 g = list(map(int, input().split()))
 g.sort()
 
-def search():
-    start = 1
-    end = g[n-1]
+left, right = 0, g[n - 1]
 
-    while start <= end:
+# mid 높이에 절단기를 위치했을때, m이상의 나무를 얻을 수 있는가?
+# TF 분포, True가 되는 시점이 중요
+def check(mid):
+    _sum = 0
 
-        mid = (start + end) // 2
+    for i in g:
+        if (i > mid):
+            _sum += (i - mid)
 
-        tmp = 0
+    # 즉, _sum의 값이 m 보다 커질 때를 찾는다.
+    return _sum >= m
 
-        # 나무 계산
-        for i in range(n):
-            if g[i] > mid:
-                tmp += (g[i] - mid)
+while left + 1 < right:
 
-        if tmp >= m:
-            start = mid + 1
-        else:
-            end = mid - 1
+    mid = (left + right) // 2
 
-    return end
+    if check(mid):
+        left = mid
+    else:
+        right = mid
 
-print(search())
-
-
-
-
-
+print(left)
 
 

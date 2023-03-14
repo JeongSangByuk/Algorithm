@@ -9,8 +9,12 @@ import heapq
 input = sys.stdin.readline
 sys.setrecursionlimit(10 ** 6)
 
-s = list("1234")
+n = int(input())
+g = list(map(int, input().split()))
+g.sort()
 
-print(s[-2:])
+ans = (0, 0, 0)
+k = 9e9
 
+for i in
 

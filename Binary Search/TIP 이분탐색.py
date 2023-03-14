@@ -6,42 +6,64 @@ import itertools
 import heapq
 from bisect import bisect_left
 
+# https://blog.naver.com/jinhan814/222607789392
+
 sys.setrecursionlimit(10 ** 7)
 input = sys.stdin.readline
 
+k = 3
+g = [1, 2, 3, 3, 3, 4]
+g.sort()
 
-n = 1000
+print(g)
 
-left = 0
-right = n
 
-# lower_bound : 탐색 값 중 가장 작은 값을 인덱스를 반환
-def bs_lower_bound(k):
+def check_lower(mid):
 
-    while (left <= right):
+    # 처음으로 g[mid]가 k보다 작아지는 시점
+    return k <= g[mid]
+
+
+def bs_lower_bound():
+    left = -1
+    right = len(g)
+
+    while left + 1 < right:
+
         mid = (left + right) // 2
 
-        if mid < k:
-            left = mid + 1
+        if not check_lower(mid):
+            left = mid
         else:
-            right = mid - 1
-
-    return left
-
-# lower_bound : 탐색 값 중 가장 큰 값을 인덱스를 반환
-def bs_upper_bound(k):
-
-    while(left <= right):
-        mid = (left + right) // 2
-
-        if mid <= k:
-            left = mid + 1
-        else:
-            right = mid - 1
+            right = mid
 
     return right
 
 
+def check_upper(mid):
+
+
+    return k < g[mid]
+
+
+def bs_upper_bound():
+    left = 0
+    right = len(g)
+
+    while left + 1 < right:
+
+        mid = (left + right) // 2
+
+        if not check_upper(mid):
+            left = mid
+        else:
+            right = mid
+
+    return right
+
+
+print(bs_lower_bound())
+print(bs_upper_bound())
 
 
 
