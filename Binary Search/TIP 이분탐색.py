@@ -19,53 +19,47 @@ print(g)
 
 
 def check_lower(mid):
-
-    # 처음으로 g[mid]가 k보다 작아지는 시점
-    return k <= g[mid]
+    # 처음으로 g[mid]가 k보다 크거나 같아지는 시점을 찾는다
+    # 이때 FT 분포이기때문에 hi return
+    return g[mid] >= k
 
 
 def bs_lower_bound():
-    left = -1
-    right = len(g)
+    lo = -1
+    hi = len(g)
 
-    while left + 1 < right:
+    while lo + 1 < hi:
 
-        mid = (left + right) // 2
+        mid = (lo + hi) // 2
 
         if not check_lower(mid):
-            left = mid
+            lo = mid
         else:
-            right = mid
+            hi = mid
 
-    return right
+    return hi
 
 
 def check_upper(mid):
-
-
-    return k < g[mid]
+    # 처음으로  g[mid]가 k보다 커지는 시점을 찾는다
+    return g[mid] > k
 
 
 def bs_upper_bound():
-    left = 0
-    right = len(g)
+    lo = 0
+    hi = len(g)
 
-    while left + 1 < right:
+    while lo + 1 < hi:
 
-        mid = (left + right) // 2
+        mid = (lo + hi) // 2
 
         if not check_upper(mid):
-            left = mid
+            lo = mid
         else:
-            right = mid
+            hi = mid
 
-    return right
+    return hi
 
 
 print(bs_lower_bound())
 print(bs_upper_bound())
-
-
-
-
-
