@@ -1,15 +1,49 @@
-import heapq
+import math
 import sys
-from pytube import YouTube
+from collections import deque
+from collections import defaultdict
+import itertools
+import heapq
+from bisect import bisect_left
 
-DOWNLOAD_FOLDER = "C:\\Users\\BYUK\\Desktop"
+sys.setrecursionlimit(10 ** 7)
+input = sys.stdin.readline
 
-link = 'https://www.youtube.com/watch?v=DIY7M5f8fIE'
+n, m = map(int, input().split())
+g = list(map(int, input().split()))
 
-file = YouTube(link).streams.get_highest_resolution().download()
+lo, hi = 0, max(g)
 
-try:
-    YouTube(link).streams.get_highest_resolution().download(filename="test.mp4", output_path= DOWNLOAD_FOLDER)
-    YouTube(link).streams.get_highest_resolution().download()
-except:
-    print("error")
+
+def check(i):
+
+    # i만큼 잘랐을때 합
+    _sum = 0
+
+    for j in g:
+        tmp = j - i
+        if tmp > 0:
+            _sum += tmp
+
+    # 2  3  4
+    # 13 11 11
+    # upper bound
+    return _sum >= m
+
+
+while lo + 1 < hi:
+
+    mid = (lo + hi) // 2
+
+    if check(mid):
+        lo = mid
+    else:
+        hi = mid
+
+print(lo)
+
+
+
+
+
+

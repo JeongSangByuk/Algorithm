@@ -1,42 +1,61 @@
-import math
 import sys
-from collections import deque
-from collections import defaultdict
-import itertools
-import heapq
-from bisect import bisect_left
 
-sys.setrecursionlimit(10 ** 7)
 input = sys.stdin.readline
 
-n, m = map(int, input().split())
-g = list(map(int, input().split()))
-g.sort()
+n = int(input())
+liquids = list(map(int, input().split()))
 
-left, right = 0, g[n - 1]
+ans = float("INF")
+ans_left = 0
+ans_right = 0
 
-# mid 높이에 절단기를 위치했을때, m이상의 나무를 얻을 수 있는가?
-# TF 분포, True가 되는 시점이 중요
-def check(mid):
-    _sum = 0
+def check(mid, current):
 
-    for i in g:
-        if (i > mid):
-            _sum += (i - mid)
+    # 발견하고자 하는 곳은 어딘가? -> 음수에서 양수로 넘어가는 부분 -> 그게 제일 0과 가까운 값
+    # ans보다 작은 값
 
-    # 즉, _sum의 값이 m 보다 커질 때를 찾는다.
-    return _sum <= m
+    # ans = 3
+    # -2    -1   4  98 100 130
+    # 101 100 95 1 1 30
+    # f    f   f   t
 
-while left + 1 < right:
+    tmp = abs(current + liquids[mid])
 
-    mid = (left + right) // 2
+    return tmp > ans
 
-    # m미터 이상의 나무를 가지고 갈 수 있는가?
-    if check(mid):
-        left = mid
-    else:
-        right = mid
+for i in range(n - 1):
 
-print(left)
+    current = liquids[i]
 
+    lo = i + 1
+    hi = n
 
+    while lo + 1 < hi:
+
+        mid = (lo + hi) // 2
+
+        if check(mid, current):
+            hi = mid
+        else:
+            lo = mid
+
+    # print(i, lo, hi)
+
+    # if abs(current + liquids[lo]) < abs(current + liquids[hi]):
+    #     t = abs(current + liquids[lo])
+    #     tt = lo
+    # else:
+    #     t = abs(current + liquids[hi])
+    #     tt = hi
+
+    t = abs(current + liquids[lo])
+
+    if t < ans:
+        ans = t
+        ans_left = i
+        ans_right = lo
+
+        if t == 0:
+            break
+
+print(liquids[ans_left], liquids[ans_right])

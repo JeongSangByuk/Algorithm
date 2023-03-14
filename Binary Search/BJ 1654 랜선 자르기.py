@@ -12,61 +12,28 @@ k, n = map(int, input().split())
 
 g = [int(input()) for _ in range(k)]
 
-g.sort()
+# 몇센치로 자를것인가?
+lo, hi = 0, max(g) + 1
 
-def search():
-    start = 1
-    end = g[-1]
+def check(mid):
 
-    while start <= end:
+    _sum = 0
 
-        mid = (start + end)//2
+    for i in g:
+        _sum += i // mid
 
-        tmp = 0
-        for i in range(k):
-            tmp += g[i] // mid
+    # TF
+    return _sum >= n
 
-        if tmp >= n:
-            start = mid + 1
-        else:
-            end = mid - 1
+while lo + 1 < hi:
 
-    return end
+    mid = (lo + hi) // 2
 
-def search2():
+    # TF 분포
+    if check(mid):
+        lo = mid
+    else:
+        hi = mid
 
-    def check(mid):
-
-        _sum = 0
-        for i in range(k):
-            _sum += (g[i] // mid)
-
-        return _sum >= n
-
-    lo, hi = 0, g[-1]
-
-    while lo + 1 < hi:
-        mid = (lo + hi) // 2
-
-        if check(mid):
-            lo = mid
-        else:
-            hi = mid
-
-    print(lo)
-
-
-
-
-
-print(search())
-
-
-
-
-
-
-
-
-
+print(lo)
 
