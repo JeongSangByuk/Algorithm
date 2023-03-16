@@ -1,52 +1,46 @@
-import copy
 import sys
-import math
-from collections import deque
-from collections import defaultdict
-import itertools
-import heapq
 
 input = sys.stdin.readline
 
-n, c= map(int, input().split())
-
-g = [int(input()) for _ in range(n)]
+n, c = map(int, input().split())
+g = list(int(input()) for _ in range(n))
 
 g.sort()
 
-def search():
+def check(mid):
 
-    start = 1
-    end = g[-1] - g[0]
+    # mid는 가장 인접한 공유기 사이 거리.
+    # 최소 거리가 mid 이상이 되도록 최대 n개의 공유기를 설치할 수 있는가.
 
-    while start <= end:
-        mid = (start + end) // 2
+    # 최대 거리가 1이 되도록 하면 최대 9개나 설치해야함
+    # 최대 거리가 9이 되도록하면 최대 1개 설치해야함
 
-        tmp = 1
-        prev = g[0]
+    # 1 2 4 8 9
 
-        for i in range(1, n):
+    # 1   9
+    # T      T T F F
+    # 9 4 4 3 3  1
 
-            if g[i] >= prev + mid:
-                tmp += 1
-                prev = g[i]
+    # 공유기를 최대로 설치하려면 무조건 첫번째에는 넣어야한다.
+    cnt = 1
+    prev = g[0]
 
-        if tmp >= c:
-            start = mid + 1
-        else:
-            end = mid - 1
+    for i in g:
+        if i - prev >= mid:
+            cnt += 1
+            prev = i
 
-    return end
+    return cnt >= c
 
-print(search())
+lo, hi = 0, max(g) + 1
 
+while lo + 1 < hi:
 
+    mid = (lo + hi) // 2
 
+    if check(mid):
+        lo = mid
+    else:
+        hi = mid
 
-
-
-
-
-
-
-
+print(lo)
