@@ -15,36 +15,51 @@ n = int(input())
 g = list(map(int,input().split()))
 
 def sol1_binary_search():
-    ans = 9e9
-    ans_yx = (0,0)
+
+    def make_tmp(i, current):
+        return current + liquids[i]
+
+    def check(mid, current):
+        tmp = make_tmp(mid, current)
+
+        # 음수에서 양수로 넘어가는 부분이 가장 절대값이 작을 것이다.
+        # -101 -99 -2 -1 4 98 103
+        #      -200 -102 -102 -97 -3 2
+        #       T   T    T    T   T  F
+        #
+        # 찾고 싶은 부분은? tmp < 0 인가?
+
+        return tmp < 0
 
     for i in range(n - 1):
+        current = liquids[i]
 
-        now = g[i]
+        lo = i + 1
+        hi = n - 1
 
-        l = i + 1
-        r = n - 1
-        print(g[l:r + 1])
+        while lo + 1 < hi:
+            mid = (lo + hi) // 2
 
-        while l <= r:
-            mid = (l + r)//2
-            tmp = now + g[mid]
-
-            if abs(tmp) < ans:
-                ans = abs(tmp)
-                ans_yx = (i, mid)
-
-                if tmp == 0:
-                    break
-
-            # 이진탐색과 투포인터를 활용
-            # 합의 절대값이 0보다 작으면 양수가 되게끔,
-            if tmp < 0:
-                l = mid + 1
+            if check(mid, current):
+                lo = mid
             else:
-                r = mid - 1
+                hi = mid
 
-    print(g[ans_yx[0]], g[ans_yx[1]])
+        tmp_ans = ans
+        tmp_ans_index = (ans_index[0], ans_index[1])
+
+        if abs(make_tmp(lo, current)) < abs(make_tmp(hi, current)):
+            tmp_ans = abs(make_tmp(lo, current))
+            tmp_ans_index = (i, lo)
+        else:
+            tmp_ans = abs(make_tmp(hi, current))
+            tmp_ans_index = (i, hi)
+
+        if abs(tmp_ans) < ans:
+            ans = tmp_ans
+            ans_index = tmp_ans_index
+
+    print(liquids[ans_index[0]], liquids[ans_index[1]])
 
 def sol2_two_pointer():
     start = 0
