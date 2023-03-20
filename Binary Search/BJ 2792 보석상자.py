@@ -21,10 +21,7 @@ def check(mid):
     _sum = 0
 
     for i in g:
-        if i % mid == 0:
-            _sum += i // mid
-        else:
-            _sum += (i//mid) + 1
+        _sum += math.ceil(i/mid)
 
     # 1 2 3 4 7   // mid
     # 9 6 5 5 1     // n명
