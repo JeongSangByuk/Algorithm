@@ -78,3 +78,56 @@ dfs(0,0,0)
 
 #print(g)
 print(answer)
+
+
+### 2023-03-21 BFS + itertools
+
+def sol2():
+    def count_safe(tg):
+        que = deque()
+
+        for i, v1 in enumerate(tg):
+            for j, v2 in enumerate(v1):
+                if v2 == 2:
+                    que.append((i, j))
+
+        while que:
+
+            y, x = que.popleft()
+
+            for i in range(4):
+                ny = y + dy[i]
+                nx = x + dx[i]
+
+                if 0 <= ny < n and 0 <= nx < m and tg[ny][nx] == 0:
+                    tg[ny][nx] = 2
+                    que.append((ny, nx))
+
+        ans = 0
+
+        for i in tg:
+            for j in i:
+                if j == 0:
+                    ans += 1
+
+        return ans
+
+    ar = []
+    for i in range(n):
+        for j in range(m):
+            if g[i][j] == 0:
+                ar.append((i, j))
+
+    c = list(itertools.combinations(ar, 3))
+
+    ans = 0
+
+    for i in c:
+        tg = list(tt[:] for tt in g)
+
+        for j in i:
+            tg[j[0]][j[1]] = 1
+
+        ans = max(count_safe(tg), ans)
+
+    print(ans)

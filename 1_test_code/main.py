@@ -9,24 +9,9 @@ from bisect import bisect_left
 sys.setrecursionlimit(10 ** 7)
 input = sys.stdin.readline
 
-x, y, c = map(float, input().split())
+n, m = map(int, input().split())
+g = list(list(map(int, input().split())) for _ in range(n))
 
-lo, hi = 0, min(x,y)
+dy, dx = [-1, 1, 0, 0], [0, 0, -1, 1]
 
-def check(mid):
 
-    h1 = math.sqrt(x * x - mid * mid)
-    h2 = math.sqrt(y * y - mid * mid)
-
-    return c <= ((h1 * h2) / (h1 + h2))
-
-while abs(hi - lo) > 1e-6:
-
-    mid = (lo + hi) / 2.0
-
-    if check(mid):
-        lo = mid
-    else:
-        hi = mid
-
-print("%.3f" %round(lo,3))
