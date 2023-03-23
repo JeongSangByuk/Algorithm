@@ -1,87 +1,98 @@
+import math
 import sys
 from collections import deque
+from collections import defaultdict
 import itertools
+import heapq
+from bisect import bisect_left
 
-sys.setrecursionlimit(10**7)
+sys.setrecursionlimit(10 ** 7)
 input = sys.stdin.readline
 
-n, m  = map(int, input().split())
+n, m = map(int, input().split())
+g = list(list(input().strip()) for _ in range(n))
+print(g)
+dy, dx = [-1, 1, 0, 0], [0, 0, -1, 1]
 
-g = [list(map(str, input().strip())) for _ in range(n)]
+init_b, init_r = (0, 0), (0, 0)
 
-# 상하좌우
-dy, dx = [-1,1,0,0],[0,0,-1,1]
-
-# 중복 방지
-visited = set()
-
-red_init = [0,0]
-blue_init = [0,0]
-
-# 첫 시작 찾기.
 for i in range(n):
-    for j in range(m):
+    for j in range(n):
         if g[i][j] == 'R':
-            red_init[0] = i
-            red_init[1] = j
+            init_r = (i, j)
+            g[i][j] = "."
         elif g[i][j] == 'B':
-            blue_init[0] = i
-            blue_init[1] = j
+            init_b = (i, j)
+            g[i][j] = "."
 
-def move_ball(y,x,i):
-
+print(g)
+def move(now_p, tp):
     cnt = 0
+    y, x = now_p[0], now_p[1]
 
-    while g[y + dy[i]][x + dx[i]] != '#' and g[y][x] != 'O':
-        y += dy[i]
-        x += dx[i]
-        cnt += 1
+    while True:
 
-    return (y,x,cnt)
+        ny = y + dy[tp]
+        nx = x + dx[tp]
+
+        if 0 <= ny < n and 0 <= nx < m and g[ny][nx] != '#':
+
+            cnt += 1
+
+            # 골인일 경우 return
+            if g[ny][nx] == "O":
+                return ((-100, -100), cnt)
+
+            y, x = ny, nx
+
+        else:
+            return ((y, x), cnt)
+
 
 
 def bfs():
-
     que = deque()
-    que.append((red_init[0],red_init[1],blue_init[0],blue_init[1],0))
+    que.append((init_b, init_r, 0))
+
+    visit = set()
+    visit.add((init_b, init_r))
+    print(que)
+    print(g)
 
     while que:
-        ry, rx, by, bx, cnt = que.popleft()
-        visited.add((ry, rx, by, bx))
+        now_b, now_r, cnt = que.popleft()
 
         if cnt >= 10:
-            return -1
+            return 0
 
         for i in range(4):
-            nry, nrx, rcnt = move_ball(ry, rx, i)
-            nby, nbx, bcnt = move_ball(by, bx, i)
 
-            if g[nby][nbx] != 'O':
+            moved_b, b_cnt = move(now_b, i)
+            moved_r, r_cnt = move(now_r, i)
 
-                # 탈출
-                if g[nry][nrx] == 'O':
-                    return cnt + 1
+            print(moved_b, moved_r)
 
-                # 겹쳤을 때, 먼저 온애를 찾는다
-                if nrx == nbx and nry == nby:
-                    if rcnt > bcnt:
-                        nrx -= dx[i]
-                        nry -= dy[i]
-                    else:
-                        nbx -= dx[i]
-                        nby -= dy[i]
+            # 둘다 들감
+            if moved_b == (-100, -100):
+                continue
 
-                if (nry,nrx,nby,nbx) not in visited:
-                    visited.add((nry,nrx,nby,nbx))
-                    que.append((nry,nrx,nby,nbx,cnt + 1))
-    return -1
+            elif moved_r == (-100, -100):
+                return 1
 
-answer = bfs()
+            # 위치가 같다면 조금
+            if moved_r == moved_b:
 
-if answer == -1:
-    print(0)
-else:
-    print(1)
+                if b_cnt < r_cnt:
+                    moved_r = (moved_r[0] - dy[i], moved_r[1] - dx[i])
+
+                else:
+                    moved_b = (moved_b[0] - dy[i], moved_b[1] - dx[i])
+
+            if (moved_b, moved_r) not in visit:
+                que.append((moved_b, moved_r, cnt + 1))
+                visit.add((moved_b, moved_r))
+
+    return 0
 
 
-
+print(bfs())
