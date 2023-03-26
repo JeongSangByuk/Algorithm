@@ -1,43 +1,52 @@
+import math
 import sys
 from collections import deque
+from collections import defaultdict
 import itertools
 import heapq
+from bisect import bisect_left
 
-sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
+sys.setrecursionlimit(10 ** 7)
 
 r, c = map(int, input().split())
-g = [list(map(str, input().strip())) for _ in range(r)]
-dy, dx = [-1,0,1],[-1,-1,-1]
-answer = 0
+g = list(list(input().strip()) for _ in range(r))
 
-def dfs(y,x):
+# visit = set()
+is_finish = False
+ans = 0
 
-    global answer
+def dfs(y, x):
+    global is_finish, ans
+    # print(y,x)
 
-    g[y][x] = 'x'
+    if x == c - 1:
+        is_finish = True
+        ans += 1
 
-    if x == 0:
-        answer += 1
-        return True
+    if is_finish:
+        return
 
-    for i in range(3):
+    x = x + 1
+    for i in [y - 1, y, y + 1]:
 
-        ny = y + dy[i]
-        nx = x + dx[i]
+        if not (0 <= i < r and 0 <= x < c and g[i][x] == '.'):
+            continue
 
-        if 0 <= ny < r and 0 <= nx < c and g[ny][nx] == '.':
+        g[i][x] = 'X'
+        dfs(i, x)
 
-            if dfs(ny,nx):
-               return True
+        if is_finish:
+            return
 
-    return False
+        # visit.remove((i, x))
+
 
 for i in range(r):
+    is_finish = False
+    g[i][0] = 'X'
+    dfs(i, 0)
+    # print("-------")
 
 
-    dfs(i,c-1)
-
-print(answer)
-
-
+print(ans)
