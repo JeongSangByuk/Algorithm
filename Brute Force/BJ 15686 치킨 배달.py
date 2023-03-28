@@ -1,150 +1,73 @@
-import copy
-import sys
 import math
+import sys
 from collections import deque
 from collections import defaultdict
 import itertools
 import heapq
+from bisect import bisect_left
 
+sys.setrecursionlimit(10 ** 7)
 input = sys.stdin.readline
-sys.setrecursionlimit(10 ** 6)
 
 n, m = map(int, input().split())
-g = [list(map(int, input().split())) for _ in range(n)]
+g = list(list(map(int, input().split())) for _ in range(n))
 
-# 완전 탐색
-def solve1():
+chick = []
+home = []
 
-    c = []
-    dic = dict()
-
-    # 치킨 찾기. 집 찾기.
-    for i in range(n):
-        for j in range(n):
-            if g[i][j] == 2:
-                c.append((i,j))
-            elif g[i][j] == 1:
-                dic[(i,j)] = 9e9
-
-    choose = list(itertools.combinations(c,m))
-
-    def count(r1, r2, c1, c2):
-         return abs(r1 - r2) + abs(c1 - c2)
-
-    def countR(y, x):
-
-        for i in range(n):
-            for j in range(n):
-
-                if g[i][j] == 1:
-                    dic[(i,j)] = min(dic[(i,j)], count(y, i, x, j))
-
-    def init():
-        for i in dic:
-            dic[i] = 9e9
-
-    ans = 9e9
-
-    for i in choose:
-
-        init()
-        for j in range(m):
-            countR(i[j][0], i[j][1])
-            ans = min(ans, sum(list(dic.values())))
-
-    print(ans)
-
-
-c = []
-dic = dict()
-
-# 치킨 찾기. 집 찾기.
 for i in range(n):
     for j in range(n):
         if g[i][j] == 2:
-            c.append((i,j))
+            chick.append((i, j))
         elif g[i][j] == 1:
-            dic[(i, j)] = 9e9
+            home.append((i, j))
 
-cl = len(c)
-visited = set()
-
-def init():
-    for i in dic:
-        dic[i] = 9e9
-
-def count(r1, r2, c1, c2):
-    return abs(r1 - r2) + abs(c1 - c2)
+visit = set()
 
 
-def countR(y, x):
-    for i in range(n):
-        for j in range(n):
+def calculate(visit):
 
-            if g[i][j] == 1:
-                dic[(i, j)] = min(dic[(i, j)], count(y, i, x, j))
+    result = 0
+    for h in home:
 
+        result += min(list(abs(h[0] - v[0]) + abs(h[1] - v[1]) for v in visit))
 
-ans = 9e9
-
-def dfs(start, d):
-
-    if d == m:
-        global ans
-        #print(visited)
-        t = list(visited)
-
-        for j in range(m):
-            countR(t[j][0], t[j][1])
-            ans = min(ans, sum(list(dic.values())))
-
-        init()
+    return result
 
 
-    for i in range(start + 1, cl):
+result = 9e9
 
-        visited.add(c[i])
-        dfs(i, d + 1)
-        visited.remove(c[i])
+tmp = list([-1] * n for _ in range(n))
 
-    return
+
+cl = len(chick)
+
+# 조합을 백트래킹으로 구현하는 방법
+def dfs(ori_idx, cnt):
+
+    global result
+
+    if cnt == m:
+        result = min(result, calculate(visit))
+        return
+
+    for i in range(ori_idx + 1, cl):
+
+        visit.add(chick[i])
+        dfs(i, cnt + 1)
+        visit.remove(chick[i])
 
 for i in range(cl):
 
-    visited.add(c[i])
+    visit.add(chick[i])
     dfs(i, 1)
-    visited.remove(c[i])
-
-print(ans)
+    visit.remove(chick[i])
 
 
+# 조합을 통한 풀이
+# c = list(itertools.combinations(chick, m))
+# result = 9e9
+# for i in c:
+#     result = min(result, calculate(i))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(result)
