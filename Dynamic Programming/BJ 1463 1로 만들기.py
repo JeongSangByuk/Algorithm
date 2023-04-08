@@ -5,19 +5,25 @@ input = sys.stdin.readline().strip
 
 n = int(input())
 
-arr = [0]*(n+1)
+_max = n + 4
+dp = [_max] * _max
 
-for i in range(2, n+1):
+dp[1] = 0
+dp[2] = 1
+dp[3] = 1
 
-    # -1 미리 한 다음에
-    arr[i] = arr[i-1] + 1
+for i in range(4, n + 1):
 
-    # 당연하게도 1보다는 2 혹은 3으로 나눈게 이득.
+    a, b, c = _max, _max, _max
+
     if i % 2 == 0:
-        arr[i] = min(arr[i], arr[i//2] + 1)
+        a = dp[i//2]
     if i % 3 == 0:
-        arr[i] = min(arr[i], arr[i//3] + 1)
+        b = dp[i//3]
+    c = dp[i - 1]
 
-print(arr[n])
+    dp[i] = min(a,b,c) + 1
+
+print(dp[n])
 
 
