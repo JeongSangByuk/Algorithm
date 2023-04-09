@@ -1,37 +1,30 @@
-import copy
-import sys
 import math
+import sys
 from collections import deque
 from collections import defaultdict
 import itertools
 import heapq
+from bisect import bisect_left
 
 input = sys.stdin.readline
-sys.setrecursionlimit(10 ** 6)
 
 n = int(input())
+g = list(list(map(int, input().split())) for _ in range(n))
 
-g = []
-cost = []
+# i번째까지 밖에 없을 때의 최댓값 배열
 dp = [0 for _ in range(n + 1)]
 
-for i in range(n):
-    a, b = map(int, input().split())
-    g.append(a)
-    cost.append(b)
-
-_max = 0
+# print(list(i[0] for i in g))
 
 for i in range(n):
-    _max = max(_max, dp[i])
 
-    if i + g[i] > n:
+    dp[i] = max(dp[i], dp[i - 1])
+
+    tmp = i + g[i][0]
+
+    if tmp >= n + 1:
         continue
 
-    dp[i + g[i]] = max(dp[i + g[i]], _max + cost[i])
+    dp[tmp] = max(dp[tmp], dp[i] + g[i][1])
 
 print(max(dp))
-
-
-
-

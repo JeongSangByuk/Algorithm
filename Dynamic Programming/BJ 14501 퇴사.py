@@ -1,51 +1,30 @@
+import math
 import sys
 from collections import deque
+from collections import defaultdict
 import itertools
 import heapq
+from bisect import bisect_left
 
-sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 
 n = int(input())
-g = []
+g = list(list(map(int, input().split())) for _ in range(n))
 
+# i번째까지 밖에 없을 때의 최댓값 배열
+dp = [0 for _ in range(n + 1)]
+
+# print(list(i[0] for i in g))
 
 for i in range(n):
-    time, pay = map(int, (input().split()))
-    g.append((time,pay))
 
+    dp[i] = max(dp[i], dp[i - 1])
 
-# 내 풀이
-# dp = [0] * n
-# dp[0] = g[0][1]
-#
-# for i in range(n):
-#
-#     m = 0
-#     for j in range(0,i + 1):
-#         if j + g[j][0] - 1 < i and m < dp[j]:
-#             m = dp[j]
-#
-#     dp[i] = m
-#     if i + g[i][0] - 1 < n:
-#         dp[i] += g[i][1]
-#     # print(i, dp)
-#print(max(dp))
+    tmp = i + g[i][0]
 
-# 정석 풀이
-dp = [0] * (n + 1)
+    if tmp >= n + 1:
+        continue
 
-for i in range(n - 1, -1 , -1):
+    dp[tmp] = max(dp[tmp], dp[i] + g[i][1])
 
-    if i + g[i][0] > n:
-        dp[i] = dp[i + 1]
-    else:
-        dp[i] = max(g[i][1] + dp[i + g[i][0]], dp[i+1])
-
-print(dp)
-
-
-
-
-
-
+print(max(dp))
