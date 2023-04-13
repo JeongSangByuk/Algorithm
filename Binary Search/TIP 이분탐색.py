@@ -97,7 +97,7 @@ def bs_upper_bound_FT():
         else:
             lo = mid
 
-    return lo
+    return hi
 
 
 def bs_upper_bound_TF():
@@ -119,7 +119,7 @@ def bs_upper_bound_TF():
         else:
             hi = mid
 
-    return lo
+    return hi
 
 
 print(bs_lower_bound_FT())
