@@ -1,38 +1,37 @@
+import math
 import sys
-from collections import deque, defaultdict
+from collections import deque
+from collections import defaultdict
 import itertools
+import heapq
+from bisect import bisect_left, bisect_right
 
 input = sys.stdin.readline
 
-n = int(input().strip())
+t = int(input())
 
-total_people = []
-answer = []
 
-def solution(answer):
+def sol():
+    n = int(input())
+    g = list(list(map(int, input().split())) for _ in range(n))
 
-    m = int(input())
-    cnt = 0
-    people = []
+    g.sort(key=lambda x: (x[0]))
 
-    for i in range(m):
-        people.append(tuple(map(int, input().split())))
+    result = 1
+    _min = g[0][1]
 
-    people.sort(key = lambda x: x[0])
+    # print(g)
 
-    # 결국 솔팅 해놨기 때문에, 0번째 인덱스는 무조건 작고! 1번째 인덱스만 비교하면 되는 것.
-    maxValue = people[0][1]
+    for i in range(1, n):
 
-    for i in range(0, m):
+        if _min < g[i][1]:
+            continue
+        _min = min(_min, g[i][1])
 
-        if maxValue > people[i][1]:
-            maxValue = people[i][1]
-            cnt += 1
+        result += 1
 
-    answer.append(cnt + 1)
+    print(result)
 
-for i in range(n):
-    solution(answer)
 
-for i in range(n):
-    print(answer[i])
+for i in range(t):
+    sol()
