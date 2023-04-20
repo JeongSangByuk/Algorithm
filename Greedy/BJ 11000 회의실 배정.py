@@ -1,29 +1,30 @@
+import math
 import sys
 from collections import deque
+from collections import defaultdict
 import itertools
-import heapq
+from heapq import heappop, heappush
+from bisect import bisect_left
 
-sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 
 n = int(input())
+g = list(tuple(map(int, input().split())) for _ in range(n))
 
-g = [list(map(int, input().split())) for _ in range(n)]
-g.sort(key=lambda x:(x[0],x[1]))
-#print(g)
+g.sort(key=lambda x: (x[0], x[1]))
 
-stack = []
-heapq.heappush(stack, g[0][1])
+heap = list()
 
-for i in range(1, n):
+result = 0
 
-    is_added = False
+for i in g:
 
-    if stack[0] > g[i][0]:
-        heapq.heappush(stack, g[i][1])
+    if not heap or heap[0] > i[0]:
+        heappush(heap, i[1])
+        result += 1
+        continue
 
-    else:
-       k = heapq.heappop(stack)
-       heapq.heappush(stack, g[i][1])
+    heappop(heap)
+    heappush(heap, i[1])
 
-print(len(stack))
+print(result)
