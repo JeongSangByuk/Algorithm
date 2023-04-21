@@ -1,22 +1,30 @@
+import math
 import sys
 from collections import deque
+from collections import defaultdict
 import itertools
-import heapq
+from heapq import heappush, heappop
+from bisect import bisect_left
 
 # https://aerocode.net/392
 
-sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 
 n = int(input())
 g = list(map(int, input().split()))
+
 g.sort()
 
-result = 1
+# print(g)
 
-for i in g:
-    if result < i:
-        break
-    result += i
+_sum = 0
 
-print(result)
+l_g = len(g)
+for i in range(l_g):
+
+    if _sum + 1 >= g[i]:
+        _sum += g[i]
+        continue
+    break
+
+print(_sum + 1)
