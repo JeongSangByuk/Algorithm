@@ -1,50 +1,46 @@
+import math
 import sys
 from collections import deque
+from collections import defaultdict
 import itertools
-import heapq
+from heapq import heappush, heappop
+from bisect import bisect_left
 
-sys.setrecursionlimit(10**7)
 input = sys.stdin.readline
 
 n, k = map(int, input().split())
 g = list(map(int, input().split()))
+tap = set()
 
-que = deque(g)
+lg = len(g)
+cnt = 0
+for i in range(lg):
 
-#print(dic)
+    # print(tap)
 
-store = []
-answer = 0
-
-while que:
-    node = que.popleft()
-
-    if node in store:
+    if g[i] in tap:
         continue
 
-    # 멀티탭이 꽉 차지 않았을 경우, 그냥 넣어주기.
-    if len(store) < n:
-        store.append(node)
+    # 남은 경우
+    if len(tap) < n:
+        tap.add(g[i])
+        continue
 
-    else:
+    tmp_l = list()
+    v = tap.copy()
 
-        tmp = deque(list(que)[:])
-        tmp_store = store[:]
+    for j in range(i + 1, lg):
 
-        # 가장 늦게 나오는거 빼주기.
-        while tmp:
+        if len(v) == 1:
+            break
 
-            if len(tmp_store) <= 1:
-                break
+        if g[j] in v:
+            v.remove(g[j])
 
-            num = tmp.popleft()
-            if num in tmp_store:
-                tmp_store.remove(num)
+    # print(v, "qweqew")
+    tap.remove(v.pop())
+    tap.add(g[i])
+    cnt += 1
 
-        store.remove(tmp_store[0])
-        store.append(node)
-        answer += 1
-
-print(answer)
-
-
+# print(tap)
+print(cnt)
