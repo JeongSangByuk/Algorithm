@@ -7,6 +7,10 @@ from bisect import bisect_left
 sys.setrecursionlimit(10 ** 7)
 input = sys.stdin.readline
 
+# https://st-lab.tistory.com/285
+# 가장 작은 것을 찾아 대치한다. -> 길이만을 구하는 것이기 때문.
+# 최대한 많이 배치될 수 있도록 가능성을 넓히는 과정.
+
 n = int(input())
 g = list(map(int, input().split()))
 dp = [0]
@@ -17,20 +21,18 @@ for i in g:
         dp.append(i)
 
     else:
-        # left = 0
-        # right = len(dp)
+        # lo, hi = 0, len(dp)
         #
-        # # 이분탐색으로 들어갈 인덱스를 찾는다.
-        # # 결국 길이를 구하는 것이기 때문에, dp 배열 자체에 값은 중요하지 않다.
-        # while left < right:
-        #     mid = (left + right) // 2
+        # while lo + 1 < hi:
+        #     mid = (lo + hi) // 2
         #
         #     if dp[mid] < i:
-        #         left = mid + 1
+        #         lo = mid
         #     else:
-        #         right = mid
+        #         hi = mid
         #
-        # dp[right] = i
+        # dp[hi] = i
+
         dp[bisect_left(dp, i)] = i
 
 # print(dp)
